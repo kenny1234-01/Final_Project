@@ -1,0 +1,13 @@
+.paglogin {
+    width: 30%;
+    margin-top: 10%;
+    margin-left: 35%;
+    background-color: rgb(0, 40, 52);
+    color: aliceblue;
+    padding: 10px;
+    border-radius: 0.75rem;
+}
+
+.paglogin a {
+    color: rgb(120, 120, 255);
+}
