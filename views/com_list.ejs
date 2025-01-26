@@ -4,24 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recommendation System Computer PC for suitable usage</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/stylesNew.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <div class="bar_home">
-        <a href="/">ระบบแนะนำการเลือกคอมพิวเตอร์พีซีให้เหมาะกับการใช้งาน</a>
-        <ul>
-            <a href="/"><li>หน้าแรก</li></a>
-            <a href="/com_list"><li>รายการคอมพิวเตอร์</li></a>
-            <a href="/com_list_brand"><li>รายการคอมพิวเตอร์แบรนด์</li></a>
-            <a href="/companent"><li>ส่วนประกอบคอมพิวเตอร์</li></a>
-        </ul>
-    </div>
-    <form action="/com_list/search" method="GET">
-        <input type="text" name="query" placeholder="ค้นหาสเปคคอมพิวเตอร์..." value="<%= query %>">
-        <button type="submit">ค้นหา</button>
-        <a href="/com_list/page/1" style="margin-left: 10px;"class="resetBtn">รีเซ็ต</a> <!-- ปุ่มรีเซ็ต -->
-    </form>
+    <%- include('navbar/navcomlist') %>
         <div class="specFull">
             <h1 style="padding: 15px;border-radius: 5px;color: black;border: 1px solid #ccc;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">Computer Specifications</h1>
             <div class="spec-grid">
@@ -357,7 +345,8 @@
                     modal.style.display = "none";
                 }
             };
-        </script>    
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
 
 </body>

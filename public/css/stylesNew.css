@@ -1,0 +1,256 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    margin: 20px;
+    font-size: 20px;
+}
+
+button {
+    text-decoration: none;
+    background-color: #cacaca;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border-radius: 5px;
+    height: 38px;
+    font-weight: bold;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    align-self: center;
+}
+
+table {
+    width: 100%; /* ทำให้ตารางเต็มความกว้าง */
+    border-collapse: collapse; /* ลบช่องว่างระหว่างเซลล์ */
+    font-size: 14px; /* ขนาดตัวอักษรเล็กลง */
+    box-sizing: border-box;
+}
+
+th, td {
+    padding: 8px; /* ลดการ padding */
+    text-align: left;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+th {
+    background-color: #f4f4f4; /* สีพื้นหลังหัวตาราง */
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9; /* เปลี่ยนสีเมื่อ hover */
+}
+
+/* กำหนดให้คอลัมน์บางคอลัมน์แคบลง */
+td:nth-child(1), td:nth-child(2), td:nth-child(3) {
+    width: 15%; /* กำหนดความกว้างคอลัมน์ CPU, Motherboard, VGA */
+}
+
+td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+    width: 10%; /* กำหนดความกว้างคอลัมน์ RAM, SSD, HDD */
+}
+
+td:nth-child(7), td:nth-child(8), td:nth-child(9), td:nth-child(10) {
+    width: 8%; /* กำหนดความกว้างคอลัมน์ PSU, Case, Cooling, Monitor */
+}
+
+/* เพิ่มการเลื่อน (scrolling) สำหรับตารางเมื่อหน้าจอเล็ก */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto; /* ทำให้ตารางเลื่อนในแนวนอน */
+        white-space: nowrap; /* ป้องกันไม่ให้คำยาวหัก */
+    }
+
+    th, td {
+        font-size: 12px; /* ขนาดตัวอักษรเล็กลงเมื่อหน้าจอเล็ก */
+    }
+}
+
+/* Style for Modal */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.bar_home {
+    background-color: #f1f1f1;
+    padding: 15px;
+    text-align: center;
+    width: 2300px;
+}
+
+.bar_home a {
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul a {
+    text-decoration: none;
+}
+
+ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+/* Table Styles */
+table {
+    width: 80%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Reset Button Styles */
+.resetBtn {
+    text-decoration: none;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.resetBtn:hover {
+    background-color: #e57373;
+}
+
+
+
+.bar_home{
+    display: flex; /* จัดกึ่งกลางแนวนอน */
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    background-color: rgb(0, 40, 52);
+}
+
+.bar_home ul {
+    display: flex;
+    list-style: none;
+    color: white;
+    margin-left: 130px;
+}
+
+.bar_home li {
+    margin-right: 80px;
+    font-size: 17px;
+}
+
+.bar_home a {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.com {
+    display: flex;
+}
+
+.specFull {
+    margin: 20px; /* ช่องว่างรอบๆ */
+}
+
+.spec-grid {
+    display: grid; /* ใช้ CSS Grid */
+    grid-template-columns: repeat(5, 1fr); /* แถวละ 5 คอลัมน์ */
+    gap: 20px; /* ช่องว่างระหว่างกริด */
+}
+
+.spec { /* สีพื้นหลัง */
+    padding: 5px; /* ช่องว่างภายใน */
+    border: 1px solid #ccc; /* เส้นขอบ */
+    border-radius: 5px; /* มุมโค้ง */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: black;
+    font-size: 12px; /* เงาเล็กน้อย */
+}
+
+.pagination {
+    margin: 40px;
+    text-align: right;
+}
+.pagination a {
+    padding: 10px;
+    margin: 5px;
+    text-decoration: none;
+    color: white;
+    border: 1px solid #ccc;
+    background-color: rgb(0, 40, 52);
+    font-weight: bold;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination a:hover {
+    background-color: #000000;
+}
+
+
+
