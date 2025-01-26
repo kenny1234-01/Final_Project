@@ -16,10 +16,7 @@ const dns = require('dns');
 
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 // เชื่อมต่อกับ MongoDBmongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/
-mongoose.connect('mongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/spec?retryWrites=true&w=majority&appName=Cluster0', { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
-}).then(() => {
+mongoose.connect('mongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/spec?retryWrites=true&w=majority&appName=Cluster0').then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {
     console.log("Error connecting to MongoDB:", error);
