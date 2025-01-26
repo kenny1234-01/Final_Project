@@ -144,8 +144,8 @@ const computerSchema = new mongoose.Schema({
     Rank3: String
   });
 // สร้างโมเดลจาก Schema
-const Spec = mongoose.model('spec_com', computerSchema, 'spec_com');
-const SpecJIB = mongoose.model('spec_com_jib', computerSchemaJIB, 'spec_com_jib');
+const Spec = mongoose.model('spec_coms', computerSchema);
+const SpecJIB = mongoose.model('spec_com_jibs', computerSchemaJIB);
 
 app.set('view engine', 'ejs');
 
@@ -166,7 +166,7 @@ const adminSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 
-const Admin = mongoose.model('com_admin', adminSchema, 'com_admin');
+const Admin = mongoose.model('com_admins', adminSchema);
 
 app.get('/register', (req, res) => {
     res.render('registerAdmin'); // หน้าลงทะเบียนสำหรับแอดมิน
