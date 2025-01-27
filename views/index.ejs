@@ -14,28 +14,28 @@
 
     <!-- Display Search Results -->
     <% if (specs.length > 0) { %>
-        <div class="specFull">
+        <div class="container-fluid">
             <h2>ผลการค้นหาสำหรับ "<%= query %>"</h2>
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Brand Computer</th>
-                        <th>CPU Model</th>
-                        <th>Motherboard</th>
-                        <th>Graphics Card</th>
-                        <th>RAM (GB)</th>
-                        <th>SSD (GB)</th>
-                        <th>HDD (GB)</th>
-                        <th>Power Supply (W)</th>
-                        <th>Case</th>
-                        <th>Cooling</th>
-                        <th>Monitor</th>
+                        <th scope="col">Brand Computer</th>
+                        <th scope="col">CPU Model</th>
+                        <th scope="col">Motherboard</th>
+                        <th scope="col">Graphics Card</th>
+                        <th scope="col">RAM (GB)</th>
+                        <th scope="col">SSD (GB)</th>
+                        <th scope="col">HDD (GB)</th>
+                        <th scope="col">Power Supply (W)</th>
+                        <th scope="col">Case</th>
+                        <th scope="col">Cooling</th>
+                        <th scope="col">Monitor</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% specs.forEach(spec => { %>
                         <tr>
-                            <td>
+                            <th scope="col">
                                 <a href="javascript:void(0);" class="openModal"
                                    data-rank1="<%= spec.Rank1 %>"
                                    data-rank2="<%= spec.Rank2 %>"
@@ -93,7 +93,7 @@
                                    PriceMONITOR="<%= spec.PriceMONITOR %>">
                                 คอมประกอบ
                                 </a>
-                            </td>
+                            </th>
                             <td><%= spec.ModelCPU %></td>
                             <td><%= spec.ModelMainboard %></td>
                             <td><%= spec.ModelVGA %></td>
@@ -110,28 +110,28 @@
             </table>
         </div>
     <% } else if (specsJIB.length > 0) { %>
-        <div class="specFull">
+        <div class="container-fluid">
             <h2>ผลการค้นหาสำหรับ "<%= query %>"</h2>
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
-                        <th>Brand Computer</th>
-                        <th>CPU Model</th>
-                        <th>Motherboard</th>
-                        <th>Graphics Card</th>
-                        <th>RAM (GB)</th>
-                        <th>SSD (GB)</th>
-                        <th>HDD (GB)</th>
-                        <th>Power Supply (W)</th>
-                        <th>Case</th>
-                        <th>Cooling</th>
-                        <th>Monitor</th>
+                        <th scope="col">Brand Computer</th>
+                        <th scope="col">CPU Model</th>
+                        <th scope="col">Motherboard</th>
+                        <th scope="col">Graphics Card</th>
+                        <th scope="col">RAM (GB)</th>
+                        <th scope="col">SSD (GB)</th>
+                        <th scope="col">HDD (GB)</th>
+                        <th scope="col">Power Supply (W)</th>
+                        <th scope="col">Case</th>
+                        <th scope="col">Cooling</th>
+                        <th scope="col">Monitor</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% specsJIB.forEach(spec => { %>
                         <tr>
-                            <td>
+                            <th scope="col">
                                 <a href="javascript:void(0);" class="openModal"
                                    data-rank1="<%= spec.Rank1 %>"
                                    data-rank2="<%= spec.Rank2 %>"
@@ -189,7 +189,7 @@
                                    PriceMONITOR="<%= spec.PriceMONITOR %>">
                                 <%= spec.ModelCom %>
                                 </a>
-                            </td>
+                            </th>
                             <td><%= spec.ModelCPU %></td>
                             <td><%= spec.ModelMainboard %></td>
                             <td><%= spec.ModelVGA %></td>
@@ -215,85 +215,97 @@
     <% } %>
 
 
-    <!-- Modal for CPU Details -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>CPU Details</h2>
-            <p><h3>รายละเอียด CPU</h3> <strong>แบรนต์ : </strong><span id="BrandCPU"></span> <strong>รุ่น : </strong><span id="SeriesCPU"></span> 
-                <strong>โมเดล : </strong><span id="ModelCPU"></span> <strong>ความเร็ว : </strong><span id="CPU_Base_Clock"></span> 
-                <strong>ราคา : </strong><span id="PriceCPU"></span></p>
-            <hr>
-            <p><h3>รายละเอียด Mainboard</h3> <strong>แบรนต์ : </strong><span id="BrandMainboard"></span> <strong>รุ่น : </strong><span id="ModelMainboard"></span> 
-                <strong>รองรับ : </strong><span id="Mainboard_CPU_Support"></span> <strong>ความจุ : </strong><span id="MemoryMainboard"></span> 
-                <strong>MemorySupport : </strong><span id="Mainboard_Memory_Support"></span> <strong>ราคา : </strong><span id="PriceMainboard"></span></p>
-            <hr>
-            <p><h3>รายละเอียดการ์ดจอ</h3> <strong>แบรนต์ : </strong><span id="BrandVGA"></span> <strong>Chipset : </strong><span id="ChipsetVGA"></span> 
-                <strong>รุ่น : </strong><span id="SeriesVGA"></span> <strong>โมเดล : </strong><span id="ModelVGA"></span> 
-                <strong>ความเร็วตั้งต้น : </strong><span id="VGA_Base_Clock"></span> <strong>ความเร็ว Boost : </strong><span id="VGA_Boost_Clock"></span>
-                <strong>ความเร็ว RAM : </strong><span id="VGA_Memory_Clock"></span> <strong>ขนาด RAM : </strong><span id="VGA_Memory_Size"></span>
-                <strong>ราคา : </strong><span id="PriceVGA"></span></p>
-            <hr>
-            <p><h3>รายละเอียด RAM</h3> <strong>ขนาด : </strong><span id="RAM_Size"></span> <strong>ความเร็ว : </strong><span id="RAM_Speed"></span> 
-                <strong>ราคา : </strong><span id="PriceRAM"></span></p>
-            <hr>
-            <p><h3>รายละเอียดพื้นที่จัดเก็บ SSD</h3> <strong>ขนาด : </strong><span id="CapacitySSD"></span> 
-                <strong>ความเร็วในการอ่าน : </strong><span id="Read_SSD"></span>
-                <strong>ความเร็วในการเขียน : </strong><span id="Write_SSD"></span>  
-                <strong>ราคา : </strong><span id="PriceSSD"></span></p>
-            <hr>
-            <p><h3>รายละเอียดพื้นที่จัดเก็บ SSD2</h3> <strong>ขนาด : </strong><span id="CapacitySSD2"></span> 
-                <strong>ความเร็วในการอ่าน : </strong><span id="Read_SSD2"></span>
-                <strong>ความเร็วในการเขียน : </strong><span id="Write_SSD2"></span>  
-                <strong>ราคา : </strong><span id="PriceSSD2"></span></p>
-            <hr>
-            <p><h3>รายละเอียดพื้นที่จัดเก็บ HDD</h3> <strong>ขนาด : </strong><span id="CapacityHDD"></span> 
-                <strong>ความเร็ว : </strong><span id="Speed_HDD"></span>
-                <strong>ราคา : </strong><span id="PriceHDD"></span></p>
-            <hr>
-            <p><h3>รายละเอียด Power Supply</h3> <strong>ขนาด : </strong><span id="PS"></span> 
-                <strong>ราคา : </strong><span id="PricePS"></span></p>
-            <hr>
-            <p><h3>รายละเอียด CASE</h3> <strong>แบรนต์ : </strong><span id="BrandCASE"></span> 
-                <strong>โมเดล : </strong><span id="ModelCASE"></span>
-                <strong>ความกว้าง : </strong><span id="WeightCASE"></span>
-                <strong>จำนวน Ports : </strong><span id="I_O_Ports_CASE"></span>
-                <strong>ราคา : </strong><span id="PriceCASE"></span></p>
-            <hr>
-            <p><h3>รายละเอียด COOLING</h3> <strong>แบรนต์ : </strong><span id="BrandCOOLING"></span> 
-                <strong>โมเดล : </strong><span id="ModelCOOLING"></span>
-                <strong>พัดลม : </strong><span id="Fan_Built_In_COOLING"></span>
-                <strong>ราคา : </strong><span id="PriceCOOLING"></span></p>
-            <hr>
-            <p><h3>รายละเอียดหน้าจอ</h3> <strong>แบรนต์ : </strong><span id="BrandMONITOR"></span> 
-                <strong>โมเดล : </strong><span id="ModelMONITOR"></span>
-                <strong>ขนาดจอ : </strong><span id="Display_Size_MONITOR"></span>
-                <strong>ความกว้าง X ความสูง : </strong><span id="Max_Resolution_MONITOR"></span>
-                <strong>Refresh Rate : </strong><span id="Refresh_Rate_MONITOR"></span>
-                <strong>ราคา : </strong><span id="PriceMONITOR"></span></p>
-            <hr>
-            <p><strong>ประเภทการใช้งานอันดับ 1:</strong> <span id="modal-rank1"></span></p>
-            <p><strong>ประเภทการใช้งานอันดับ 2:</strong> <span id="modal-rank2"></span></p>
-            <p><strong>ประเภทการใช้งานอันดับ 3:</strong> <span id="modal-rank3"></span></p>
-            
-        </div>
-    </div>
+    <form id="dataForm" method="POST" action="/showdatacom" style="display: none;">
+        <!-- Rank -->
+        <input type="hidden" name="rank1" id="rank1">
+        <input type="hidden" name="rank2" id="rank2">
+        <input type="hidden" name="rank3" id="rank3">
+      
+        <!-- CPU -->
+        <input type="hidden" name="BrandCPU" id="BrandCPU">
+        <input type="hidden" name="SeriesCPU" id="SeriesCPU">
+        <input type="hidden" name="ModelCPU" id="ModelCPU">
+        <input type="hidden" name="CPU_Base_Clock" id="CPU_Base_Clock">
+        <input type="hidden" name="PriceCPU" id="PriceCPU">
+      
+        <!-- Mainboard -->
+        <input type="hidden" name="BrandMainboard" id="BrandMainboard">
+        <input type="hidden" name="ModelMainboard" id="ModelMainboard">
+        <input type="hidden" name="Mainboard_CPU_Support" id="Mainboard_CPU_Support">
+        <input type="hidden" name="MemoryMainboard" id="MemoryMainboard">
+        <input type="hidden" name="Mainboard_Memory_Support" id="Mainboard_Memory_Support">
+        <input type="hidden" name="PriceMainboard" id="PriceMainboard">
+      
+        <!-- VGA -->
+        <input type="hidden" name="BrandVGA" id="BrandVGA">
+        <input type="hidden" name="ChipsetVGA" id="ChipsetVGA">
+        <input type="hidden" name="SeriesVGA" id="SeriesVGA">
+        <input type="hidden" name="ModelVGA" id="ModelVGA">
+        <input type="hidden" name="VGA_Base_Clock" id="VGA_Base_Clock">
+        <input type="hidden" name="VGA_Boost_Clock" id="VGA_Boost_Clock">
+        <input type="hidden" name="VGA_Memory_Clock" id="VGA_Memory_Clock">
+        <input type="hidden" name="VGA_Memory_Size" id="VGA_Memory_Size">
+        <input type="hidden" name="PriceVGA" id="PriceVGA">
+      
+        <!-- RAM -->
+        <input type="hidden" name="RAM_Size" id="RAM_Size">
+        <input type="hidden" name="RAM_Speed" id="RAM_Speed">
+        <input type="hidden" name="PriceRAM" id="PriceRAM">
+      
+        <!-- SSD -->
+        <input type="hidden" name="CapacitySSD" id="CapacitySSD">
+        <input type="hidden" name="Read_SSD" id="Read_SSD">
+        <input type="hidden" name="Write_SSD" id="Write_SSD">
+        <input type="hidden" name="PriceSSD" id="PriceSSD">
+      
+        <!-- SSD2 -->
+        <input type="hidden" name="CapacitySSD2" id="CapacitySSD2">
+        <input type="hidden" name="Read_SSD2" id="Read_SSD2">
+        <input type="hidden" name="Write_SSD2" id="Write_SSD2">
+        <input type="hidden" name="PriceSSD2" id="PriceSSD2">
+      
+        <!-- HDD -->
+        <input type="hidden" name="CapacityHDD" id="CapacityHDD">
+        <input type="hidden" name="Speed_HDD" id="Speed_HDD">
+        <input type="hidden" name="PriceHDD" id="PriceHDD">
+      
+        <!-- PSU -->
+        <input type="hidden" name="PS" id="PS">
+        <input type="hidden" name="PricePS" id="PricePS">
+      
+        <!-- Case -->
+        <input type="hidden" name="BrandCASE" id="BrandCASE">
+        <input type="hidden" name="ModelCASE" id="ModelCASE">
+        <input type="hidden" name="WeightCASE" id="WeightCASE">
+        <input type="hidden" name="I_O_Ports_CASE" id="I_O_Ports_CASE">
+        <input type="hidden" name="PriceCASE" id="PriceCASE">
+      
+        <!-- Cooling -->
+        <input type="hidden" name="BrandCOOLING" id="BrandCOOLING">
+        <input type="hidden" name="ModelCOOLING" id="ModelCOOLING">
+        <input type="hidden" name="Fan_Built_In_COOLING" id="Fan_Built_In_COOLING">
+        <input type="hidden" name="PriceCOOLING" id="PriceCOOLING">
+      
+        <!-- Monitor -->
+        <input type="hidden" name="BrandMONITOR" id="BrandMONITOR">
+        <input type="hidden" name="ModelMONITOR" id="ModelMONITOR">
+        <input type="hidden" name="Display_Size_MONITOR" id="Display_Size_MONITOR">
+        <input type="hidden" name="Max_Resolution_MONITOR" id="Max_Resolution_MONITOR">
+        <input type="hidden" name="Refresh_Rate_MONITOR" id="Refresh_Rate_MONITOR">
+        <input type="hidden" name="PriceMONITOR" id="PriceMONITOR">
+      </form>
+      
+    
 
     <script>
-        // Get the modal
-        var modal = document.getElementById("modal");
+
 
         // Get all elements with class "openModal"
         var openModalLinks = document.querySelectorAll(".openModal");
 
-        // Get the <span> element that closes the modal
-        var closeModal = document.getElementsByClassName("close")[0];
-
         // When the user clicks on a link, open the modal and display the information
         openModalLinks.forEach(function(link) {
-            link.onclick = function(event) {
-                event.preventDefault();
-
+            link.addEventListener('click', function () {
                 // Get data attributes from the clicked link
                 var rank1 = this.getAttribute("data-rank1");
                 var rank2 = this.getAttribute("data-rank2");
@@ -361,88 +373,76 @@
                 var PriceMONITOR = this.getAttribute("PriceMONITOR");
 
                 // Update modal content
-                document.getElementById("modal-rank1").textContent = rank1;
-                document.getElementById("modal-rank2").textContent = rank2;
-                document.getElementById("modal-rank3").textContent = rank3;
-                document.getElementById("BrandCPU").textContent = BrandCPU;
-                document.getElementById("SeriesCPU").textContent = SeriesCPU;
-                document.getElementById("ModelCPU").textContent = ModelCPU;
-                document.getElementById("CPU_Base_Clock").textContent = CPU_Base_Clock;
-                document.getElementById("PriceCPU").textContent = PriceCPU;
+                document.getElementById("rank1").value = rank1;
+                document.getElementById("rank2").value = rank2;
+                document.getElementById("rank3").value = rank3;
+                document.getElementById("BrandCPU").value = BrandCPU;
+                document.getElementById("SeriesCPU").value = SeriesCPU;
+                document.getElementById("ModelCPU").value = ModelCPU;
+                document.getElementById("CPU_Base_Clock").value = CPU_Base_Clock;
+                document.getElementById("PriceCPU").value = PriceCPU;
 
-                document.getElementById("BrandMainboard").textContent = BrandMainboard;
-                document.getElementById("ModelMainboard").textContent = ModelMainboard;
-                document.getElementById("Mainboard_CPU_Support").textContent = Mainboard_CPU_Support;
-                document.getElementById("MemoryMainboard").textContent = MemoryMainboard;
-                document.getElementById("Mainboard_Memory_Support").textContent = Mainboard_Memory_Support;
-                document.getElementById("PriceMainboard").textContent = PriceMainboard;
+                document.getElementById("BrandMainboard").value = BrandMainboard;
+                document.getElementById("ModelMainboard").value = ModelMainboard;
+                document.getElementById("Mainboard_CPU_Support").value = Mainboard_CPU_Support;
+                document.getElementById("MemoryMainboard").value = MemoryMainboard;
+                document.getElementById("Mainboard_Memory_Support").value = Mainboard_Memory_Support;
+                document.getElementById("PriceMainboard").value = PriceMainboard;
 
-                document.getElementById("BrandVGA").textContent = BrandVGA;
-                document.getElementById("ChipsetVGA").textContent = ChipsetVGA;
-                document.getElementById("SeriesVGA").textContent = SeriesVGA;
-                document.getElementById("ModelVGA").textContent = ModelVGA;
-                document.getElementById("VGA_Base_Clock").textContent = VGA_Base_Clock;
-                document.getElementById("VGA_Boost_Clock").textContent = VGA_Boost_Clock;
-                document.getElementById("VGA_Memory_Clock").textContent = VGA_Memory_Clock;
-                document.getElementById("VGA_Memory_Size").textContent = VGA_Memory_Size;
-                document.getElementById("PriceVGA").textContent = PriceVGA;
+                document.getElementById("BrandVGA").value = BrandVGA;
+                document.getElementById("ChipsetVGA").value = ChipsetVGA;
+                document.getElementById("SeriesVGA").value = SeriesVGA;
+                document.getElementById("ModelVGA").value = ModelVGA;
+                document.getElementById("VGA_Base_Clock").value = VGA_Base_Clock;
+                document.getElementById("VGA_Boost_Clock").value = VGA_Boost_Clock;
+                document.getElementById("VGA_Memory_Clock").value = VGA_Memory_Clock;
+                document.getElementById("VGA_Memory_Size").value = VGA_Memory_Size;
+                document.getElementById("PriceVGA").value = PriceVGA;
                 
-                document.getElementById("RAM_Size").textContent = RAM_Size;
-                document.getElementById("RAM_Speed").textContent = RAM_Speed;
-                document.getElementById("PriceRAM").textContent = PriceRAM;
+                document.getElementById("RAM_Size").value = RAM_Size;
+                document.getElementById("RAM_Speed").value = RAM_Speed;
+                document.getElementById("PriceRAM").value = PriceRAM;
                 
-                document.getElementById("CapacitySSD").textContent = CapacitySSD;
-                document.getElementById("Read_SSD").textContent = Read_SSD;
-                document.getElementById("Write_SSD").textContent = Write_SSD;
-                document.getElementById("PriceSSD").textContent = PriceSSD;
+                document.getElementById("CapacitySSD").value = CapacitySSD;
+                document.getElementById("Read_SSD").value = Read_SSD;
+                document.getElementById("Write_SSD").value = Write_SSD;
+                document.getElementById("PriceSSD").value = PriceSSD;
                 
-                document.getElementById("CapacitySSD2").textContent = CapacitySSD2;
-                document.getElementById("Read_SSD2").textContent = Read_SSD2;
-                document.getElementById("Write_SSD2").textContent = Write_SSD2;
-                document.getElementById("PriceSSD2").textContent = PriceSSD2;
+                document.getElementById("CapacitySSD2").value = CapacitySSD2;
+                document.getElementById("Read_SSD2").value = Read_SSD2;
+                document.getElementById("Write_SSD2").value = Write_SSD2;
+                document.getElementById("PriceSSD2").value = PriceSSD2;
 
-                document.getElementById("CapacityHDD").textContent = CapacityHDD;
-                document.getElementById("Speed_HDD").textContent = Speed_HDD;
-                document.getElementById("PriceHDD").textContent = PriceHDD;
+                document.getElementById("CapacityHDD").value = CapacityHDD;
+                document.getElementById("Speed_HDD").value = Speed_HDD;
+                document.getElementById("PriceHDD").value = PriceHDD;
 
-                document.getElementById("PS").textContent = PS;
-                document.getElementById("PricePS").textContent = PricePS;
+                document.getElementById("PS").value = PS;
+                document.getElementById("PricePS").value = PricePS;
 
-                document.getElementById("BrandCASE").textContent = BrandCASE;
-                document.getElementById("ModelCASE").textContent = ModelCASE;
-                document.getElementById("WeightCASE").textContent = WeightCASE;
-                document.getElementById("I_O_Ports_CASE").textContent = I_O_Ports_CASE;
-                document.getElementById("PriceCASE").textContent = PriceCASE;
+                document.getElementById("BrandCASE").value = BrandCASE;
+                document.getElementById("ModelCASE").value = ModelCASE;
+                document.getElementById("WeightCASE").value = WeightCASE;
+                document.getElementById("I_O_Ports_CASE").value = I_O_Ports_CASE;
+                document.getElementById("PriceCASE").value = PriceCASE;
                 
-                document.getElementById("BrandCOOLING").textContent = BrandCOOLING;
-                document.getElementById("ModelCOOLING").textContent = ModelCOOLING;
-                document.getElementById("Fan_Built_In_COOLING").textContent = Fan_Built_In_COOLING;
-                document.getElementById("PriceCOOLING").textContent = PriceCOOLING;
+                document.getElementById("BrandCOOLING").value = BrandCOOLING;
+                document.getElementById("ModelCOOLING").value = ModelCOOLING;
+                document.getElementById("Fan_Built_In_COOLING").value = Fan_Built_In_COOLING;
+                document.getElementById("PriceCOOLING").value = PriceCOOLING;
 
-                document.getElementById("BrandMONITOR").textContent = BrandMONITOR;
-                document.getElementById("ModelMONITOR").textContent = ModelMONITOR;
-                document.getElementById("Display_Size_MONITOR").textContent = Display_Size_MONITOR;
-                document.getElementById("Max_Resolution_MONITOR").textContent = Max_Resolution_MONITOR;
-                document.getElementById("Refresh_Rate_MONITOR").textContent = Refresh_Rate_MONITOR;
-                document.getElementById("PriceMONITOR").textContent = PriceMONITOR;
+                document.getElementById("BrandMONITOR").value = BrandMONITOR;
+                document.getElementById("ModelMONITOR").value = ModelMONITOR;
+                document.getElementById("Display_Size_MONITOR").value = Display_Size_MONITOR;
+                document.getElementById("Max_Resolution_MONITOR").value = Max_Resolution_MONITOR;
+                document.getElementById("Refresh_Rate_MONITOR").value = Refresh_Rate_MONITOR;
+                document.getElementById("PriceMONITOR").value = PriceMONITOR;
                
 
-                // Display the modal
-                modal.style.display = "block";
-            };
+                document.getElementById('dataForm').submit();
+            });
         });
 
-        // When the user clicks on <span> (x), close the modal
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

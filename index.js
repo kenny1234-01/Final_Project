@@ -911,6 +911,40 @@ app.get('/companent', (req, res) => {
     res.render('components')
 });
 
+app.post('/showdatacom', (req, res) => {
+    // ดึงข้อมูลที่ถูกส่งมาจากฟอร์ม
+    const {
+      rank1, rank2, rank3,
+      BrandCPU, SeriesCPU, ModelCPU, CPU_Base_Clock, PriceCPU,
+      BrandMainboard, ModelMainboard, Mainboard_CPU_Support, MemoryMainboard, Mainboard_Memory_Support, PriceMainboard,
+      BrandVGA, ChipsetVGA, SeriesVGA, ModelVGA, VGA_Base_Clock, VGA_Boost_Clock, VGA_Memory_Clock, VGA_Memory_Size, PriceVGA,
+      RAM_Size, RAM_Speed, PriceRAM,
+      CapacitySSD, Read_SSD, Write_SSD, PriceSSD,
+      CapacitySSD2, Read_SSD2, Write_SSD2, PriceSSD2,
+      CapacityHDD, Speed_HDD, PriceHDD,
+      PS, PricePS,
+      BrandCASE, ModelCASE, WeightCASE, I_O_Ports_CASE, PriceCASE,
+      BrandCOOLING, ModelCOOLING, Fan_Built_In_COOLING, PriceCOOLING,
+      BrandMONITOR, ModelMONITOR, Display_Size_MONITOR, Max_Resolution_MONITOR, Refresh_Rate_MONITOR, PriceMONITOR
+    } = req.body;
+  
+    // ใช้ข้อมูลเพื่อแสดงผลใน EJS หรือจัดการต่อ
+    res.render('showdatacom', {
+      rank1, rank2, rank3,
+      BrandCPU, SeriesCPU, ModelCPU, CPU_Base_Clock, PriceCPU,
+      BrandMainboard, ModelMainboard, Mainboard_CPU_Support, MemoryMainboard, Mainboard_Memory_Support, PriceMainboard,
+      BrandVGA, ChipsetVGA, SeriesVGA, ModelVGA, VGA_Base_Clock, VGA_Boost_Clock, VGA_Memory_Clock, VGA_Memory_Size, PriceVGA,
+      RAM_Size, RAM_Speed, PriceRAM,
+      CapacitySSD, Read_SSD, Write_SSD, PriceSSD,
+      CapacitySSD2, Read_SSD2, Write_SSD2, PriceSSD2,
+      CapacityHDD, Speed_HDD, PriceHDD,
+      PS, PricePS,
+      BrandCASE, ModelCASE, WeightCASE, I_O_Ports_CASE, PriceCASE,
+      BrandCOOLING, ModelCOOLING, Fan_Built_In_COOLING, PriceCOOLING,
+      BrandMONITOR, ModelMONITOR, Display_Size_MONITOR, Max_Resolution_MONITOR, Refresh_Rate_MONITOR, PriceMONITOR
+    });
+  });
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
