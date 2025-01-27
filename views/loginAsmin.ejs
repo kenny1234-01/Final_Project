@@ -12,24 +12,25 @@
 <body>
     <%- include('navbar/nav') %>
 
-        <div class="paglogin">
-            <center><h1>Admin Login</h1></center>
-            
-            <form action="/Adminlogin" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username" required><br>
-                
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required><br>
-                <center><button type="submit">Login</button></center>
-                
-                
-            </form>
-            <br>
-            <center>Don't have an account? <a href="/register">Sign up </a></center>
-            
-            
+        <div class="container mt-3">
+            <div class="row">
+                <div class="card col-4 text-bg-success">
+                    <h1>Admin Login</h1>
+                    <form action="/Adminlogin" method="POST">
+                        <div class="mb-3">
+                            <label for="exampleInputUsername" class="form-label">Username:</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                    </form>
+                    <a class="text-light" href="/register">Sign up </a>
+                </div>    
+            </div>    
         </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

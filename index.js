@@ -214,7 +214,11 @@ function requireLogin(req, res, next) {
 }
 
 app.get('/admin/dashboard', requireLogin, (req, res) => {
-    res.render('scraping'); // หน้าหลักของแอดมิน
+    res.render('dashboardAdmin'); // หน้าหลักของแอดมิน
+});
+
+app.get('/admin/dashboard/scraping', requireLogin, (req, res) => {
+    res.render('scraping'); // หน้าเว็บ scraping
 });
 
 
@@ -223,7 +227,7 @@ app.post('/scrape', async (req, res) => {
     const url = req.body.url;
     const list = req.body.list; // รับ URL ที่ผู้ใช้กรอก
     const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
+    const page = await browser.newPage();
   
   await page.goto(url);
 
