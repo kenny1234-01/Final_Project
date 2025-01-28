@@ -221,6 +221,10 @@ app.get('/admin/dashboard/scraping', requireLogin, (req, res) => {
     res.render('scraping'); // หน้าเว็บ scraping
 });
 
+app.get('/admin/dashboard/Edit', requireLogin, (req, res) => {
+    res.render('editData'); // หน้าเว็บ scraping
+});
+
 
 // ใน route handler ส่ง `res` ไปยังฟังก์ชัน scrapeData
 app.post('/scrape', async (req, res) => {
