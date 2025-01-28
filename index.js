@@ -221,9 +221,16 @@ app.get('/admin/dashboard/scraping', requireLogin, (req, res) => {
     res.render('scraping'); // หน้าเว็บ scraping
 });
 
-app.get('/admin/dashboard/Edit', requireLogin, (req, res) => {
-    res.render('editData'); // หน้าเว็บ scraping
+app.get('/admin/dashboard/Edit', requireLogin, async (req, res) => {
+    try {
+      const specs = await Spec.find();
+      res.render('editData', { specs });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error retrieving data');
+    }
 });
+  
 
 
 // ใน route handler ส่ง `res` ไปยังฟังก์ชัน scrapeData
