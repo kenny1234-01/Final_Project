@@ -16,7 +16,7 @@
           <!-- Sidebar -->
           <%- include('navbar/navAdmin') %>
           <div class="col">
-            <button type="submit" class="btn btn-primary mt-3 mb-3">เพิ่มข้อมูล +</button>
+            <button type="submit" class="btn btn-outline-primary mt-3 mb-3">เพิ่มข้อมูล +</button>
             <div class="table-responsive rounded">
               <table class="table table-sm">
                   <thead class="table-secondary">
@@ -94,8 +94,8 @@
                               <td><%= spec.Rank1 %></td>
                               <td><%= spec.Rank2 %></td>
                               <td><%= spec.Rank3 %></td>
-                              <td><button type="submit" class="btn btn-success">แก้ไข</button></td>
-                              <td><button type="submit" class="btn btn-danger">ลบ</button></td>
+                              <td><a href="/admin/dashboard/Edit/EditCom/<%= spec._id %>" class="btn btn-success">แก้ไข</a></td>
+                              <td><a href="/admin/dashboard/Edit/DeleteCom" class="btn btn-danger">ลบ</a></td>
                           </tr>
                       <% }) %>
                   </tbody>
@@ -184,6 +184,9 @@
       <input type="hidden" name="Refresh_Rate_MONITOR" id="Refresh_Rate_MONITOR">
       <input type="hidden" name="PriceMONITOR" id="PriceMONITOR">
     </form>
+
+
+      
     
   <script>
       // Get all elements with class "openModal"
@@ -326,9 +329,10 @@
              
 
               document.getElementById('dataForm').submit();
+
+              
           });
       });
-
   </script>
 </body>
 </html>

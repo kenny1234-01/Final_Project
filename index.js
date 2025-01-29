@@ -27,7 +27,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 // กำหนด Schema
 const computerSchema = new mongoose.Schema({
-    _id: String,
     BrandCPU: String,
     SeriesCPU: String,
     ModelCPU: String,
@@ -229,6 +228,27 @@ app.get('/admin/dashboard/Edit', requireLogin, async (req, res) => {
     } catch (err) {
       console.error(err);
       res.status(500).send('Error retrieving data');
+    }
+});
+
+app.get('/admin/dashboard/Edit/EditCom/:id', requireLogin, async (req, res) => {
+    try {
+        const specs = await Spec.findById(req.params.id);
+        res.render('editCom', { spec: specs });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error retrieving data');
+    }
+});
+
+app.post('/admin/dashboard/Edit/EditCom/:id', requireLogin, async (req, res) => {
+    try {
+        const Up_specs = req.body;
+        await Spec.findByIdAndUpdate(req.params.id,  Up_specs );
+        res.redirect('/admin/dashboard/Edit');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error retrieving data');
     }
 });
   
