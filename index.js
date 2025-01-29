@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 // กำหนด Schema
 const computerSchema = new mongoose.Schema({
+    _id: String,
     BrandCPU: String,
     SeriesCPU: String,
     ModelCPU: String,

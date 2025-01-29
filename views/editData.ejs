@@ -14,121 +14,93 @@
     <div class="container-fluid">
         <div class="row">
           <!-- Sidebar -->
-          <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-3">
-            <div class="position-sticky">
-              <h5 class="text-center">Admin</h5>
-              <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" href="/admin/dashboard" data-bs-toggle="tab">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin/dashboard/scraping" data-bs-toggle="tab">Scraping</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/dashboard/Edit" data-bs-toggle="tab">Edit Data</a>
-                </li>
-                <li class="nav-item mt-5">
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-success">ออกจากระบบ</button>
-                    </form>
-                </li>
-              </ul>
+          <%- include('navbar/navAdmin') %>
+          <div class="col">
+            <button type="submit" class="btn btn-primary mt-3 mb-3">เพิ่มข้อมูล +</button>
+            <div class="table-responsive rounded">
+              <table class="table table-sm">
+                  <thead class="table-secondary">
+                      <tr>
+                          <th scope="col">รายละเอียดสเปค</th>
+                          <th scope="col">อันดับที่ 1</th>
+                          <th scope="col">อันดับที่ 2</th>
+                          <th scope="col">อันดับที่ 3</th>
+                          <th scope="col"></th>
+                          <th scope="col"></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% specs.forEach(spec => { %>
+                          <tr>
+                              <td scope="col">
+                                  <a href="javascript:void(0);" class="openModal"
+                                    data-rank1="<%= spec.Rank1 %>"
+                                    data-rank2="<%= spec.Rank2 %>"
+                                    data-rank3="<%= spec.Rank3 %>"
+                                    BrandCPU="<%= spec.BrandCPU %>"
+                                    SeriesCPU="<%= spec.SeriesCPU %>"
+                                    ModelCPU="<%= spec.ModelCPU %>"
+                                    CPU_Base_Clock="<%= spec.CPU_Base_Clock %>"
+                                    PriceCPU="<%= spec.PriceCPU %>"
+                                    BrandMainboard="<%= spec.BrandMainboard %>"
+                                    ModelMainboard="<%= spec.ModelMainboard %>"
+                                    Mainboard_CPU_Support="<%= spec.Mainboard_CPU_Support %>"
+                                    MemoryMainboard="<%= spec.MemoryMainboard %>"
+                                    Mainboard_Memory_Support="<%= spec.Mainboard_Memory_Support %>"
+                                    PriceMainboard="<%= spec.PriceMainboard %>"
+                                    BrandVGA="<%= spec.BrandVGA %>"
+                                    ChipsetVGA="<%= spec.ChipsetVGA %>"
+                                    SeriesVGA="<%= spec.SeriesVGA %>"
+                                    ModelVGA="<%= spec.ModelVGA %>"
+                                    VGA_Base_Clock="<%= spec.VGA_Base_Clock %>"
+                                    VGA_Boost_Clock="<%= spec.VGA_Boost_Clock %>"
+                                    VGA_Memory_Clock="<%= spec.VGA_Memory_Clock %>"
+                                    VGA_Memory_Size="<%= spec.VGA_Memory_Size %>"
+                                    PriceVGA="<%= spec.PriceVGA %>"
+                                    RAM_Size="<%= spec.RAM_Size %>"
+                                    RAM_Speed="<%= spec.RAM_Speed %>"
+                                    PriceRAM="<%= spec.PriceRAM %>"
+                                    CapacitySSD="<%= spec.CapacitySSD %>"
+                                    Read_SSD="<%= spec.Read_SSD %>"
+                                    Write_SSD="<%= spec.Write_SSD %>"
+                                    PriceSSD="<%= spec.PriceSSD %>"
+                                    CapacitySSD2="<%= spec.CapacitySSD2 %>"
+                                    Read_SSD2="<%= spec.Read_SSD2 %>"
+                                    Write_SSD2="<%= spec.Write_SSD2 %>"
+                                    PriceSSD2="<%= spec.PriceSSD2 %>"
+                                    CapacityHDD="<%= spec.CapacityHDD %>"
+                                    Speed_HDD="<%= spec.Speed_HDD %>"
+                                    PriceHDD="<%= spec.PriceHDD %>"
+                                    PS="<%= spec.PS %>"
+                                    PricePS="<%= spec.PricePS %>"
+                                    BrandCASE="<%= spec.BrandCASE %>"
+                                    ModelCASE="<%= spec.ModelCASE %>"
+                                    WeightCASE="<%= spec.WeightCASE %>"
+                                    I_O_Ports_CASE="<%= spec.I_O_Ports_CASE %>"
+                                    PriceCASE="<%= spec.PriceCASE %>"
+                                    BrandCOOLING="<%= spec.BrandCOOLING %>"
+                                    ModelCOOLING="<%= spec.ModelCOOLING %>"
+                                    Fan_Built_In_COOLING="<%= spec.Fan_Built_In_COOLING %>"
+                                    PriceCOOLING="<%= spec.PriceCOOLING %>"
+                                    BrandMONITOR="<%= spec.BrandMONITOR %>"
+                                    ModelMONITOR="<%= spec.ModelMONITOR %>"
+                                    Display_Size_MONITOR="<%= spec.Display_Size_MONITOR %>"
+                                    Max_Resolution_MONITOR="<%= spec.Max_Resolution_MONITOR %>"
+                                    Refresh_Rate_MONITOR="<%= spec.Refresh_Rate_MONITOR %>"
+                                    PriceMONITOR="<%= spec.PriceMONITOR %>">
+                                    <%= spec.BrandCPU %> <%= spec.ModelCPU %> <%= spec.ChipsetVGA %> <%= spec.ModelVGA %>
+                                  </a>
+                              </td>
+                              <td><%= spec.Rank1 %></td>
+                              <td><%= spec.Rank2 %></td>
+                              <td><%= spec.Rank3 %></td>
+                              <td><button type="submit" class="btn btn-success">แก้ไข</button></td>
+                              <td><button type="submit" class="btn btn-danger">ลบ</button></td>
+                          </tr>
+                      <% }) %>
+                  </tbody>
+              </table>
             </div>
-          </nav>
-
-          <div class="col-2">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Brand Computer</th>
-                        <th scope="col">CPU Model</th>
-                        <th scope="col">Motherboard</th>
-                        <th scope="col">Graphics Card</th>
-                        <th scope="col">RAM (GB)</th>
-                        <th scope="col">SSD (GB)</th>
-                        <th scope="col">HDD (GB)</th>
-                        <th scope="col">Power Supply (W)</th>
-                        <th scope="col">Case</th>
-                        <th scope="col">Cooling</th>
-                        <th scope="col">Monitor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% specs.forEach(spec => { %>
-                        <tr>
-                            <th scope="col">
-                                <a href="javascript:void(0);" class="openModal"
-                                   data-rank1="<%= spec.Rank1 %>"
-                                   data-rank2="<%= spec.Rank2 %>"
-                                   data-rank3="<%= spec.Rank3 %>"
-                                   BrandCPU="<%= spec.BrandCPU %>"
-                                   SeriesCPU="<%= spec.SeriesCPU %>"
-                                   ModelCPU="<%= spec.ModelCPU %>"
-                                   CPU_Base_Clock="<%= spec.CPU_Base_Clock %>"
-                                   PriceCPU="<%= spec.PriceCPU %>"
-                                   BrandMainboard="<%= spec.BrandMainboard %>"
-                                   ModelMainboard="<%= spec.ModelMainboard %>"
-                                   Mainboard_CPU_Support="<%= spec.Mainboard_CPU_Support %>"
-                                   MemoryMainboard="<%= spec.MemoryMainboard %>"
-                                   Mainboard_Memory_Support="<%= spec.Mainboard_Memory_Support %>"
-                                   PriceMainboard="<%= spec.PriceMainboard %>"
-                                   BrandVGA="<%= spec.BrandVGA %>"
-                                   ChipsetVGA="<%= spec.ChipsetVGA %>"
-                                   SeriesVGA="<%= spec.SeriesVGA %>"
-                                   ModelVGA="<%= spec.ModelVGA %>"
-                                   VGA_Base_Clock="<%= spec.VGA_Base_Clock %>"
-                                   VGA_Boost_Clock="<%= spec.VGA_Boost_Clock %>"
-                                   VGA_Memory_Clock="<%= spec.VGA_Memory_Clock %>"
-                                   VGA_Memory_Size="<%= spec.VGA_Memory_Size %>"
-                                   PriceVGA="<%= spec.PriceVGA %>"
-                                   RAM_Size="<%= spec.RAM_Size %>"
-                                   RAM_Speed="<%= spec.RAM_Speed %>"
-                                   PriceRAM="<%= spec.PriceRAM %>"
-                                   CapacitySSD="<%= spec.CapacitySSD %>"
-                                   Read_SSD="<%= spec.Read_SSD %>"
-                                   Write_SSD="<%= spec.Write_SSD %>"
-                                   PriceSSD="<%= spec.PriceSSD %>"
-                                   CapacitySSD2="<%= spec.CapacitySSD2 %>"
-                                   Read_SSD2="<%= spec.Read_SSD2 %>"
-                                   Write_SSD2="<%= spec.Write_SSD2 %>"
-                                   PriceSSD2="<%= spec.PriceSSD2 %>"
-                                   CapacityHDD="<%= spec.CapacityHDD %>"
-                                   Speed_HDD="<%= spec.Speed_HDD %>"
-                                   PriceHDD="<%= spec.PriceHDD %>"
-                                   PS="<%= spec.PS %>"
-                                   PricePS="<%= spec.PricePS %>"
-                                   BrandCASE="<%= spec.BrandCASE %>"
-                                   ModelCASE="<%= spec.ModelCASE %>"
-                                   WeightCASE="<%= spec.WeightCASE %>"
-                                   I_O_Ports_CASE="<%= spec.I_O_Ports_CASE %>"
-                                   PriceCASE="<%= spec.PriceCASE %>"
-                                   BrandCOOLING="<%= spec.BrandCOOLING %>"
-                                   ModelCOOLING="<%= spec.ModelCOOLING %>"
-                                   Fan_Built_In_COOLING="<%= spec.Fan_Built_In_COOLING %>"
-                                   PriceCOOLING="<%= spec.PriceCOOLING %>"
-                                   BrandMONITOR="<%= spec.BrandMONITOR %>"
-                                   ModelMONITOR="<%= spec.ModelMONITOR %>"
-                                   Display_Size_MONITOR="<%= spec.Display_Size_MONITOR %>"
-                                   Max_Resolution_MONITOR="<%= spec.Max_Resolution_MONITOR %>"
-                                   Refresh_Rate_MONITOR="<%= spec.Refresh_Rate_MONITOR %>"
-                                   PriceMONITOR="<%= spec.PriceMONITOR %>">
-                                คอมประกอบ
-                                </a>
-                            </th>
-                            <td><%= spec.ModelCPU %></td>
-                            <td><%= spec.ModelMainboard %></td>
-                            <td><%= spec.ModelVGA %></td>
-                            <td><%= spec.RAM_Size %></td>
-                            <td><%= spec.CapacitySSD %></td>
-                            <td><%= spec.CapacityHDD %></td>
-                            <td><%= spec.PS %></td>
-                            <td><%= spec.ModelCASE %></td>
-                            <td><%= spec.ModelCOOLING %></td>
-                            <td><%= spec.ModelMONITOR %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
           </div>
         </div>
     </div>
