@@ -27,6 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 // กำหนด Schema
 const computerSchema = new mongoose.Schema({
+    BrandCom: String,
+    ModelCom: String,
     BrandCPU: String,
     SeriesCPU: String,
     ModelCPU: String,
@@ -80,7 +82,10 @@ const computerSchema = new mongoose.Schema({
     PriceMONITOR: Number,
     Rank1: String,
     Rank2: String,
-    Rank3: String
+    Rank3: String,
+    ProbabilityRank1: Number,
+    ProbabilityRank2: Number,
+    ProbabilityRank3: Number
   });
 
   const computerSchemaJIB = new mongoose.Schema({
@@ -925,21 +930,13 @@ app.get('/search', async (req, res) => {
                 { BrandCPU: { $regex: query, $options: 'i' } },
                 { ModelVGA: { $regex: query, $options: 'i' } },
                 { Rank1: { $regex: query, $options: 'i' }},
-            ]
-        });
-
-        const specsJIB = await SpecJIB.find({
-            $or: [
-                { ModelCPU: { $regex: query, $options: 'i' } },
-                { BrandCPU: { $regex: query, $options: 'i' } },
-                { ModelVGA: { $regex: query, $options: 'i' } },
-                { Rank1: { $regex: query, $options: 'i' }},
                 { ModelCom: { $regex: query, $options: 'i' }},
+                { BrandCom: { $regex: query, $options: 'i' }},
             ]
         });
 
         // ส่งข้อมูลผลการค้นหากลับไปที่หน้า index
-        res.render('index', { specs: specs, specsJIB: specsJIB, query: query });
+        res.render('index', { specs: specs, query: query });
     } catch (err) {
         res.status(500).send('Error retrieving specs');
     }
@@ -957,10 +954,10 @@ app.get('/com_list/page/:pageNumber', async (req, res) => {
 
     try {
         // ดึงข้อมูลจาก MongoDB collection 'speccom' พร้อม pagination
-        const specs = await Spec.find().skip(skip).limit(limit);
+        const specs = await Spec.find({ BrandCom: "NoBrand" }).skip(skip).limit(limit);
 
         // ดึงข้อมูลทั้งหมดเพื่อคำนวณจำนวนหน้า
-        const totalSpecs = await Spec.countDocuments();
+        const totalSpecs = await Spec.countDocuments({ BrandCom: "NoBrand" });
 
         const totalPages = Math.ceil(totalSpecs / limit); // คำนวณจำนวนหน้าทั้งหมด
 
@@ -1043,10 +1040,10 @@ app.get('/com_list_brand/page/:pageNumber', async (req, res) => {
 
     try {
         // ดึงข้อมูลจาก MongoDB collection 'speccom' พร้อม pagination
-        const specs = await SpecJIB.find().skip(skip).limit(limit);
+        const specs = await Spec.find({ BrandCom: "JIB" }).skip(skip).limit(limit);
 
         // ดึงข้อมูลทั้งหมดเพื่อคำนวณจำนวนหน้า
-        const totalSpecs = await SpecJIB.countDocuments();
+        const totalSpecs = await Spec.countDocuments({ BrandCom: "JIB" });
 
         const totalPages = Math.ceil(totalSpecs / limit); // คำนวณจำนวนหน้าทั้งหมด
 
@@ -1071,25 +1068,25 @@ app.get('/com_list_brand/search', async (req, res) => {
 
     try {
         // ค้นหาจากชื่อคอมพิวเตอร์หรือซีพียู
-        const specs = await SpecJIB.find({
+        const specs = await Spec.find({
             $or: [
                 { ModelCPU: { $regex: query, $options: 'i' } },
                 { BrandCPU: { $regex: query, $options: 'i' } },
                 { ModelVGA: { $regex: query, $options: 'i' } },
                 { Rank1: { $regex: query, $options: 'i' }},
-                { ModelCom: { $regex: query, $options: 'i' }},
+                { BrandCom: { $regex: query, $options: 'i' }},
             ]
         })
         .skip(skip)
         .limit(limit);
 
-        const totalSpecs = await SpecJIB.countDocuments({
+        const totalSpecs = await Spec.countDocuments({
             $or: [
                 { ModelCPU: { $regex: query, $options: 'i' } },
                 { BrandCPU: { $regex: query, $options: 'i' } },
                 { ModelVGA: { $regex: query, $options: 'i' } },
                 { Rank1: { $regex: query, $options: 'i' }},
-                { ModelCom: { $regex: query, $options: 'i' }},
+                { BrandCom: { $regex: query, $options: 'i' }},
             ]
         });
 

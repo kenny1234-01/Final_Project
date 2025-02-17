@@ -9,31 +9,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-success">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">ระบบแนะนำการเลือกคอมพิวเตอร์พีซีให้เหมาะกับการใช้งาน</a>
+          <a class="navbar-brand text-light" href="/">ระบบแนะนำการเลือกคอมพิวเตอร์พีซีให้เหมาะกับการใช้งาน</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">หน้าแรก</a>
+                <a class="nav-link text-light" aria-current="page" href="/">หน้าแรก</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="/com_list">รายการคอมพิวเตอร์</a>
+                <a class="nav-link text-light active" href="/com_list">รายการคอมพิวเตอร์</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/com_list_brand">รายการคอมพิวเตอร์แบรนด์</a>
+                <a class="nav-link text-light" href="/com_list_brand">รายการคอมพิวเตอร์แบรนด์</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/companent">ส่วนประกอบคอมพิวเตอร์</a>
+                <a class="nav-link text-light" href="/companent">ส่วนประกอบคอมพิวเตอร์</a>
               </li>
             </ul>
             <form class="d-flex" role="search" action="/com_list/search" method="GET">
               <input class="form-control me-2" type="search" name="query" placeholder="ค้นหาสเปคคอมพิวเตอร์..." aria-label="Search" value="<%= query %>">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-              <a href="/com_list/page/1" class="btn btn-outline-success" >รีเซ็ต</a>
+              <button class="btn btn-outline-light" type="submit">Search</button>
+              <a href="/com_list/page/1" class="btn btn-outline-light" >รีเซ็ต</a>
             </form>
           </div>
         </div>
