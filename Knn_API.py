@@ -11,18 +11,8 @@ label_encoders = joblib.load('label_encoders.pkl')
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # ตรวจสอบว่า request.json มี key 'specTest' หรือไม่
-    if not request.json or 'specTest' not in request.json:
-        return jsonify({'error': 'Missing specTest in request body'}), 400
-
-    # รับข้อมูลจาก request
-    data = request.json['specTest']
-
-    # แปลง JSON เป็น DataFrame
-    try:
-        df = pd.DataFrame([data])
-    except Exception as e:
-        return jsonify({'error': f'Data format error: {str(e)}'}), 400
+    data = request.get_json()
+    df = pd.DataFrame([data])
 
     # ตรวจสอบและแปลงข้อมูลด้วย label_encoders
     for column in df.columns:
@@ -34,7 +24,7 @@ def predict():
     prediction = model.predict(df)
     print(prediction)
 
-    return jsonify({'prediction': prediction})
+    return jsonify({'prediction': prediction.tolist()})
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

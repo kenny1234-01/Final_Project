@@ -24,9 +24,6 @@ app.use(express.static('public'));
 
 app.use(express.json());
 
-const { Spec } = require('./database/ModelSpec');
-
-
 // หน้าแอคมิน
 app.use(session({
     secret: 'KennyKey', // ใช้เป็นความลับในการเข้ารหัสเซสชัน
@@ -57,6 +54,10 @@ app.use('/com_list', pageCom_list);
 // หน้า com_list_brand
 const pageCom_list_brand = require('./routes/com_list_brand');
 app.use('/com_list_brand', pageCom_list_brand);
+
+// หน้า com_list_brand
+const pageRecommen = require('./routes/recommen');
+app.use('/recom', pageRecommen);
 
 app.get('/companent', (req, res) => {
     res.render('components')
@@ -95,38 +96,6 @@ app.post('/showdatacom', (req, res) => {
       BrandMONITOR, ModelMONITOR, Display_Size_MONITOR, Max_Resolution_MONITOR, Refresh_Rate_MONITOR, PriceMONITOR
     });
 });
-
-app.get('/recom', async (req, res) => {
-    try {
-        // รายการฟิลด์ที่ต้องการดึงจาก MongoDB
-        const fields = [
-            'BrandCPU', 'SeriesCPU', 'ModelCPU', 'CPU_Base_Clock', 'PriceCPU',
-            'BrandMainboard', 'ModelMainboard', 'Mainboard_CPU_Support', 'MemoryMainboard', 'Mainboard_Memory_Support', 'PriceMainboard',
-            'BrandVGA', 'ChipsetVGA', 'SeriesVGA', 'ModelVGA', 'VGA_Base_Clock', 'VGA_Boost_Clock', 'VGA_Memory_Clock', 'VGA_Memory_Size', 'PriceVGA',
-            'RAM_Size', 'RAM_Speed', 'PriceRAM',
-            'CapacitySSD', 'Read_SSD', 'Write_SSD', 'PriceSSD',
-            'CapacitySSD2', 'Read_SSD2', 'Write_SSD2', 'PriceSSD2',
-            'CapacityHDD', 'Speed_HDD', 'PriceHDD',
-            'PS', 'PricePS',
-            'BrandCASE', 'ModelCASE', 'WeightCASE', 'I_O_Ports_CASE', 'PriceCASE',
-            'BrandCOOLING', 'ModelCOOLING', 'Fan_Built_In_COOLING', 'PriceCOOLING',
-            'BrandMONITOR', 'ModelMONITOR', 'Display_Size_MONITOR', 'Max_Resolution_MONITOR', 'Refresh_Rate_MONITOR', 'PriceMONITOR'
-        ];
-
-        // ดึงข้อมูลทั้งหมดจาก MongoDB
-        const dataPromises = fields.map(field => Spec.distinct(field));
-        const dataResults = await Promise.all(dataPromises);
-
-        // จัดเรียงข้อมูลให้ตรงกับฟิลด์
-        const dataObject = Object.fromEntries(fields.map((field, index) => [field, dataResults[index]]));
-        // Render หน้า recommen
-        res.render('recommen', { ...dataObject });
-    } catch (error) {
-        console.error('Error in /recom route:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
