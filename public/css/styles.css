@@ -38,3 +38,10 @@ td {
 .pagination a:hover {
     background-color: #000000;
 }
+
+.searchbar{
+    background-image: url('../images/backguardSeart.jpg');
+    background-size: cover;
+    box-shadow: black 0px 0px 5px 0px;
+}
+

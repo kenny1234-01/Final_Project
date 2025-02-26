@@ -9,312 +9,526 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+
+<style>
+    .component-section {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .component-title {
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 8px;
+    }
+    .form-title {
+        color: #0d6efd;
+        margin-bottom: 30px;
+    }
+</style>
 <body>
     <%- include('navbar/nav') %>
-    <div class="container">
-        <div class="row mt-3">
-            <form action="/recom" method="post">
-                <label for="">CPU: </label>
-                <select name="BrandCPU" id="BrandCPU">
-                    <% BrandCPU.forEach((BrandCPUs, index) => { %>
-                        <option value="<%= BrandCPUs %>"><%= BrandCPUs %></option>
-                    <% })%>
-                </select>
-                <select name="SeriesCPU" id="SeriesCPU">
-                    <% SeriesCPU.forEach((SeriesCPUs, index) => { %>
-                        <option value="<%= SeriesCPUs %>"><%= SeriesCPUs %></option>
-                    <% })%>
-                </select>
-                <select name="ModelCPU" id="ModelCPU">
-                    <% ModelCPU.forEach((ModelCPUs, index) => { %>
-                        <option value="<%= ModelCPUs %>"><%= ModelCPUs %></option>
-                    <% })%>
-                </select>
-                <select name="CPU_Base_Clock" id="CPU_Base_Clock">
-                    <% CPU_Base_Clock.forEach((CPU_Base_Clocks, index) => { %>
-                        <option value="<%= CPU_Base_Clocks %>"><%= CPU_Base_Clocks %></option>
-                    <% })%>
-                </select>
-                <select name="PriceCPU" id="PriceCPU">
-                    <% PriceCPU.forEach((PriceCPUs, index) => { %>
-                        <option value="<%= PriceCPUs %>"><%= PriceCPUs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+    <div class="container py-5">
+        <h2 class="text-center form-title">PC Builder - ระบบแนะนำการประกอบคอมพิวเตอร์</h2>
+        <form action="/recom" method="post">
+            <!-- CPU Section -->
+            <div class="component-section">
+                <h4 class="component-title">CPU</h4>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <label for="BrandCPU" class="form-label">แบรนด์</label>
+                        <select name="BrandCPU" id="BrandCPU" class="form-select">
+                            <% BrandCPU.forEach((BrandCPUs, index) => { %>
+                                <option value="<%= BrandCPUs %>"><%= BrandCPUs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="SeriesCPU" class="form-label">ซีรีส์</label>
+                        <select name="SeriesCPU" id="SeriesCPU" class="form-select">
+                            <% SeriesCPU.forEach((SeriesCPUs, index) => { %>
+                                <option value="<%= SeriesCPUs %>"><%= SeriesCPUs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="ModelCPU" class="form-label">โมเดล</label>
+                        <select name="ModelCPU" id="ModelCPU" class="form-select">
+                            <% ModelCPU.forEach((ModelCPUs, index) => { %>
+                                <option value="<%= ModelCPUs %>"><%= ModelCPUs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="CPU_Base_Clock" class="form-label">ความเร็วพื้นฐาน</label>
+                        <select name="CPU_Base_Clock" id="CPU_Base_Clock" class="form-select">
+                            <% CPU_Base_Clock.forEach((CPU_Base_Clocks, index) => { %>
+                                <option value="<%= CPU_Base_Clocks %>"><%= CPU_Base_Clocks %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="PriceCPU" class="form-label">ราคา</label>
+                        <select name="PriceCPU" id="PriceCPU" class="form-select">
+                            <% PriceCPU.forEach((PriceCPUs, index) => { %>
+                                <option value="<%= PriceCPUs %>"><%= PriceCPUs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">Mainboard: </label>
-                <select name="BrandMainboard" id="BrandMainboard">
-                    <% BrandMainboard.forEach((BrandMainboards, index) => { %>
-                        <option value="<%= BrandMainboards %>"><%= BrandMainboards %></option>
-                    <% })%>
-                </select>
-                <select name="ModelMainboard" id="ModelMainboard">
-                    <% ModelMainboard.forEach((ModelMainboards, index) => { %>
-                        <option value="<%= ModelMainboards %>"><%= ModelMainboards %></option>
-                    <% })%>
-                </select>
-                <select name="Mainboard_CPU_Support" id="Mainboard_CPU_Support">
-                    <% Mainboard_CPU_Support.forEach((Mainboard_CPU_Supports, index) => { %>
-                        <option value="<%= Mainboard_CPU_Supports %>"><%= Mainboard_CPU_Supports %></option>
-                    <% })%>
-                </select>
-                <select name="MemoryMainboard" id="MemoryMainboard">
-                    <% MemoryMainboard.forEach((MemoryMainboards, index) => { %>
-                        <option value="<%= MemoryMainboards %>"><%= MemoryMainboards %></option>
-                    <% })%>
-                </select>
-                <select name="Mainboard_Memory_Support" id="Mainboard_Memory_Support">
-                    <% Mainboard_Memory_Support.forEach((Mainboard_Memory_Supports, index) => { %>
-                        <option value="<%= Mainboard_Memory_Supports %>"><%= Mainboard_Memory_Supports %></option>
-                    <% })%>
-                </select>
-                <select name="PriceMainboard" id="PriceMainboard">
-                    <% PriceMainboard.forEach((PriceMainboards, index) => { %>
-                        <option value="<%= PriceMainboards %>"><%= PriceMainboards %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- Mainboard Section -->
+            <div class="component-section">
+                <h4 class="component-title">Mainboard</h4>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <label for="BrandMainboard" class="form-label">แบรนด์</label>
+                        <select name="BrandMainboard" id="BrandMainboard" class="form-select">
+                            <% BrandMainboard.forEach((BrandMainboards, index) => { %>
+                                <option value="<%= BrandMainboards %>"><%= BrandMainboards %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="ModelMainboard" class="form-label">โมเดล</label>
+                        <select name="ModelMainboard" id="ModelMainboard" class="form-select">
+                            <% ModelMainboard.forEach((ModelMainboards, index) => { %>
+                                <option value="<%= ModelMainboards %>"><%= ModelMainboards %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="Mainboard_CPU_Support" class="form-label">รองรับ CPU</label>
+                        <select name="Mainboard_CPU_Support" id="Mainboard_CPU_Support" class="form-select">
+                            <% Mainboard_CPU_Support.forEach((Mainboard_CPU_Supports, index) => { %>
+                                <option value="<%= Mainboard_CPU_Supports %>"><%= Mainboard_CPU_Supports %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="MemoryMainboard" class="form-label">หน่วยความจำ</label>
+                        <select name="MemoryMainboard" id="MemoryMainboard" class="form-select">
+                            <% MemoryMainboard.forEach((MemoryMainboards, index) => { %>
+                                <option value="<%= MemoryMainboards %>"><%= MemoryMainboards %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="Mainboard_Memory_Support" class="form-label">รองรับหน่วยความจำ</label>
+                        <select name="Mainboard_Memory_Support" id="Mainboard_Memory_Support" class="form-select">
+                            <% Mainboard_Memory_Support.forEach((Mainboard_Memory_Supports, index) => { %>
+                                <option value="<%= Mainboard_Memory_Supports %>"><%= Mainboard_Memory_Supports %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="PriceMainboard" class="form-label">ราคา</label>
+                        <select name="PriceMainboard" id="PriceMainboard" class="form-select">
+                            <% PriceMainboard.forEach((PriceMainboards, index) => { %>
+                                <option value="<%= PriceMainboards %>"><%= PriceMainboards %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">การ์ดจอ: </label>
-                <select name="BrandVGA" id="BrandVGA">
-                    <% BrandVGA.forEach((BrandVGAs, index) => { %>
-                        <option value="<%= BrandVGAs %>"><%= BrandVGAs %></option>
-                    <% })%>
-                </select>
-                <select name="ChipsetVGA" id="ChipsetVGA">
-                    <% ChipsetVGA.forEach((ChipsetVGAs, index) => { %>
-                        <option value="<%= ChipsetVGAs %>"><%= ChipsetVGAs %></option>
-                    <% })%>
-                </select>
-                <select name="SeriesVGA" id="SeriesVGA">
-                    <% SeriesVGA.forEach((SeriesVGAs, index) => { %>
-                        <option value="<%= SeriesVGAs %>"><%= SeriesVGAs %></option>
-                    <% })%>
-                </select>
-                <select name="ModelVGA" id="ModelVGA">
-                    <% ModelVGA.forEach((ModelVGAs, index) => { %>
-                        <option value="<%= ModelVGAs %>"><%= ModelVGAs %></option>
-                    <% })%>
-                </select>
-                <select name="VGA_Base_Clock" id="VGA_Base_Clock">
-                    <% VGA_Base_Clock.forEach((VGA_Base_Clocks, index) => { %>
-                        <option value="<%= VGA_Base_Clocks %>"><%= VGA_Base_Clocks %></option>
-                    <% })%>
-                </select>
-                <select name="VGA_Boost_Clock" id="VGA_Boost_Clock">
-                    <% VGA_Boost_Clock.forEach((VGA_Boost_Clocks, index) => { %>
-                        <option value="<%= VGA_Boost_Clocks %>"><%= VGA_Boost_Clocks %></option>
-                    <% })%>
-                </select>
-                <select name="VGA_Memory_Clock" id="VGA_Memory_Clock">
-                    <% VGA_Memory_Clock.forEach((VGA_Memory_Clocks, index) => { %>
-                        <option value="<%= VGA_Memory_Clocks %>"><%= VGA_Memory_Clocks %></option>
-                    <% })%>
-                </select>
-                <select name="VGA_Memory_Size" id="VGA_Memory_Size">
-                    <% VGA_Memory_Size.forEach((VGA_Memory_Sizes, index) => { %>
-                        <option value="<%= VGA_Memory_Sizes %>"><%= VGA_Memory_Sizes %></option>
-                    <% })%>
-                </select>
-                <select name="PriceVGA" id="PriceVGA">
-                    <% PriceVGA.forEach((PriceVGAs, index) => { %>
-                        <option value="<%= PriceVGAs %>"><%= PriceVGAs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- VGA Section -->
+            <div class="component-section">
+                <h4 class="component-title">การ์ดจอ (VGA)</h4>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="BrandVGA" class="form-label">แบรนด์</label>
+                        <select name="BrandVGA" id="BrandVGA" class="form-select">
+                            <% BrandVGA.forEach((BrandVGAs, index) => { %>
+                                <option value="<%= BrandVGAs %>"><%= BrandVGAs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ChipsetVGA" class="form-label">ชิปเซ็ต</label>
+                        <select name="ChipsetVGA" id="ChipsetVGA" class="form-select">
+                            <% ChipsetVGA.forEach((ChipsetVGAs, index) => { %>
+                                <option value="<%= ChipsetVGAs %>"><%= ChipsetVGAs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="SeriesVGA" class="form-label">ซีรีส์</label>
+                        <select name="SeriesVGA" id="SeriesVGA" class="form-select">
+                            <% SeriesVGA.forEach((SeriesVGAs, index) => { %>
+                                <option value="<%= SeriesVGAs %>"><%= SeriesVGAs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ModelVGA" class="form-label">โมเดล</label>
+                        <select name="ModelVGA" id="ModelVGA" class="form-select">
+                            <% ModelVGA.forEach((ModelVGAs, index) => { %>
+                                <option value="<%= ModelVGAs %>"><%= ModelVGAs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="VGA_Base_Clock" class="form-label">ความเร็วพื้นฐาน</label>
+                        <select name="VGA_Base_Clock" id="VGA_Base_Clock" class="form-select">
+                            <% VGA_Base_Clock.forEach((VGA_Base_Clocks, index) => { %>
+                                <option value="<%= VGA_Base_Clocks %>"><%= VGA_Base_Clocks %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="VGA_Boost_Clock" class="form-label">ความเร็ว Boost</label>
+                        <select name="VGA_Boost_Clock" id="VGA_Boost_Clock" class="form-select">
+                            <% VGA_Boost_Clock.forEach((VGA_Boost_Clocks, index) => { %>
+                                <option value="<%= VGA_Boost_Clocks %>"><%= VGA_Boost_Clocks %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="VGA_Memory_Clock" class="form-label">ความเร็วหน่วยความจำ</label>
+                        <select name="VGA_Memory_Clock" id="VGA_Memory_Clock" class="form-select">
+                            <% VGA_Memory_Clock.forEach((VGA_Memory_Clocks, index) => { %>
+                                <option value="<%= VGA_Memory_Clocks %>"><%= VGA_Memory_Clocks %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="VGA_Memory_Size" class="form-label">ขนาดหน่วยความจำ</label>
+                        <select name="VGA_Memory_Size" id="VGA_Memory_Size" class="form-select">
+                            <% VGA_Memory_Size.forEach((VGA_Memory_Sizes, index) => { %>
+                                <option value="<%= VGA_Memory_Sizes %>"><%= VGA_Memory_Sizes %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="PriceVGA" class="form-label">ราคา</label>
+                        <select name="PriceVGA" id="PriceVGA" class="form-select">
+                            <% PriceVGA.forEach((PriceVGAs, index) => { %>
+                                <option value="<%= PriceVGAs %>"><%= PriceVGAs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">RAM: </label>
-                <select name="RAM_Size" id="RAM_Size">
-                    <% RAM_Size.forEach((RAM_Sizes, index) => { %>
-                        <option value="<%= RAM_Sizes %>"><%= RAM_Sizes %></option>
-                    <% })%>
-                </select>
-                <select name="RAM_Speed" id="RAM_Speed">
-                    <% RAM_Speed.forEach((RAM_Speeds, index) => { %>
-                        <option value="<%= RAM_Speeds %>"><%= RAM_Speeds %></option>
-                    <% })%>
-                </select>
-                <select name="PriceRAM" id="PriceRAM">
-                    <% PriceRAM.forEach((PriceRAMs, index) => { %>
-                        <option value="<%= PriceRAMs %>"><%= PriceRAMs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- RAM Section -->
+            <div class="component-section">
+                <h4 class="component-title">RAM</h4>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="RAM_Size" class="form-label">ขนาด</label>
+                        <select name="RAM_Size" id="RAM_Size" class="form-select">
+                            <% RAM_Size.forEach((RAM_Sizes, index) => { %>
+                                <option value="<%= RAM_Sizes %>"><%= RAM_Sizes %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="RAM_Speed" class="form-label">ความเร็ว</label>
+                        <select name="RAM_Speed" id="RAM_Speed" class="form-select">
+                            <% RAM_Speed.forEach((RAM_Speeds, index) => { %>
+                                <option value="<%= RAM_Speeds %>"><%= RAM_Speeds %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="PriceRAM" class="form-label">ราคา</label>
+                        <select name="PriceRAM" id="PriceRAM" class="form-select">
+                            <% PriceRAM.forEach((PriceRAMs, index) => { %>
+                                <option value="<%= PriceRAMs %>"><%= PriceRAMs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">SSD: </label>
-                <select name="CapacitySSD" id="CapacitySSD">
-                    <% CapacitySSD.forEach((CapacitySSDs, index) => { %>
-                        <option value="<%= CapacitySSDs %>"><%= CapacitySSDs %></option>
-                    <% })%>
-                </select>
-                <select name="Read_SSD" id="Read_SSD">
-                    <% Read_SSD.forEach((Read_SSDs, index) => { %>
-                        <option value="<%= Read_SSDs %>"><%= Read_SSDs %></option>
-                    <% })%>
-                </select>
-                <select name="Write_SSD" id="Write_SSD">
-                    <% Write_SSD.forEach((Write_SSDs, index) => { %>
-                        <option value="<%= Write_SSDs %>"><%= Write_SSDs %></option>
-                    <% })%>
-                </select>
-                <select name="PriceSSD" id="PriceSSD">
-                    <% PriceSSD.forEach((PriceSSDs, index) => { %>
-                        <option value="<%= PriceSSDs %>"><%= PriceSSDs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- Storage Sections -->
+            <div class="row g-4">
+                <!-- SSD Section -->
+                <div class="col-md-6">
+                    <div class="component-section h-100">
+                        <h4 class="component-title">SSD หลัก</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="CapacitySSD" class="form-label">ความจุ</label>
+                                <select name="CapacitySSD" id="CapacitySSD" class="form-select">
+                                    <% CapacitySSD.forEach((CapacitySSDs, index) => { %>
+                                        <option value="<%= CapacitySSDs %>"><%= CapacitySSDs %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Read_SSD" class="form-label">ความเร็วอ่าน</label>
+                                <select name="Read_SSD" id="Read_SSD" class="form-select">
+                                    <% Read_SSD.forEach((Read_SSDs, index) => { %>
+                                        <option value="<%= Read_SSDs %>"><%= Read_SSDs %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Write_SSD" class="form-label">ความเร็วเขียน</label>
+                                <select name="Write_SSD" id="Write_SSD" class="form-select">
+                                    <% Write_SSD.forEach((Write_SSDs, index) => { %>
+                                        <option value="<%= Write_SSDs %>"><%= Write_SSDs %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="PriceSSD" class="form-label">ราคา</label>
+                                <select name="PriceSSD" id="PriceSSD" class="form-select">
+                                    <% PriceSSD.forEach((PriceSSDs, index) => { %>
+                                        <option value="<%= PriceSSDs %>"><%= PriceSSDs %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <label for="">SSD2: </label>
-                <select name="CapacitySSD2" id="CapacitySSD2">
-                    <% CapacitySSD2.forEach((CapacitySSD2s, index) => { %>
-                        <option value="<%= CapacitySSD2s %>"><%= CapacitySSD2s %></option>
-                    <% })%>
-                </select>
-                <select name="Read_SSD2" id="Read_SSD2">
-                    <% Read_SSD2.forEach((Read_SSD2s, index) => { %>
-                        <option value="<%= Read_SSD2s %>"><%= Read_SSD2s %></option>
-                    <% })%>
-                </select>
-                <select name="Write_SSD2" id="Write_SSD2">
-                    <% Write_SSD2.forEach((Write_SSD2s, index) => { %>
-                        <option value="<%= Write_SSD2s %>"><%= Write_SSD2s %></option>
-                    <% })%>
-                </select>
-                <select name="PriceSSD2" id="PriceSSD2">
-                    <% PriceSSD2.forEach((PriceSSD2s, index) => { %>
-                        <option value="<%= PriceSSD2s %>"><%= PriceSSD2s %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+                <!-- SSD2 Section -->
+                <div class="col-md-6">
+                    <div class="component-section h-100">
+                        <h4 class="component-title">SSD เสริม</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="CapacitySSD2" class="form-label">ความจุ</label>
+                                <select name="CapacitySSD2" id="CapacitySSD2" class="form-select">
+                                    <% CapacitySSD2.forEach((CapacitySSD2s, index) => { %>
+                                        <option value="<%= CapacitySSD2s %>"><%= CapacitySSD2s %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Read_SSD2" class="form-label">ความเร็วอ่าน</label>
+                                <select name="Read_SSD2" id="Read_SSD2" class="form-select">
+                                    <% Read_SSD2.forEach((Read_SSD2s, index) => { %>
+                                        <option value="<%= Read_SSD2s %>"><%= Read_SSD2s %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Write_SSD2" class="form-label">ความเร็วเขียน</label>
+                                <select name="Write_SSD2" id="Write_SSD2" class="form-select">
+                                    <% Write_SSD2.forEach((Write_SSD2s, index) => { %>
+                                        <option value="<%= Write_SSD2s %>"><%= Write_SSD2s %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="PriceSSD2" class="form-label">ราคา</label>
+                                <select name="PriceSSD2" id="PriceSSD2" class="form-select">
+                                    <% PriceSSD2.forEach((PriceSSD2s, index) => { %>
+                                        <option value="<%= PriceSSD2s %>"><%= PriceSSD2s %></option>
+                                    <% })%>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">HDD: </label>
-                <select name="CapacityHDD" id="CapacityHDD">
-                    <% CapacityHDD.forEach((CapacityHDDs, index) => { %>
-                        <option value="<%= CapacityHDDs %>"><%= CapacityHDDs %></option>
-                    <% })%>
-                </select>
-                <select name="Speed_HDD" id="Speed_HDD">
-                    <% Speed_HDD.forEach((Speed_HDDs, index) => { %>
-                        <option value="<%= Speed_HDDs %>"><%= Speed_HDDs %></option>
-                    <% })%>
-                </select>
-                <select name="PriceHDD" id="PriceHDD">
-                    <% PriceHDD.forEach((PriceHDDs, index) => { %>
-                        <option value="<%= PriceHDDs %>"><%= PriceHDDs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- HDD Section -->
+            <div class="component-section mt-4">
+                <h4 class="component-title">HDD</h4>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="CapacityHDD" class="form-label">ความจุ</label>
+                        <select name="CapacityHDD" id="CapacityHDD" class="form-select">
+                            <% CapacityHDD.forEach((CapacityHDDs, index) => { %>
+                                <option value="<%= CapacityHDDs %>"><%= CapacityHDDs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="Speed_HDD" class="form-label">ความเร็ว</label>
+                        <select name="Speed_HDD" id="Speed_HDD" class="form-select">
+                            <% Speed_HDD.forEach((Speed_HDDs, index) => { %>
+                                <option value="<%= Speed_HDDs %>"><%= Speed_HDDs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="PriceHDD" class="form-label">ราคา</label>
+                        <select name="PriceHDD" id="PriceHDD" class="form-select">
+                            <% PriceHDD.forEach((PriceHDDs, index) => { %>
+                                <option value="<%= PriceHDDs %>"><%= PriceHDDs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">PowerSupply: </label>
-                <select name="PS" id="PS">
-                    <% PS.forEach((PSs, index) => { %>
-                        <option value="<%= PSs %>"><%= PSs %></option>
-                    <% })%>
-                </select>
-                <select name="PricePS" id="PricePS">
-                    <% PricePS.forEach((PricePSs, index) => { %>
-                        <option value="<%= PricePSs %>"><%= PricePSs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- PowerSupply Section -->
+            <div class="component-section">
+                <h4 class="component-title">Power Supply</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="PS" class="form-label">กำลังไฟ</label>
+                        <select name="PS" id="PS" class="form-select">
+                            <% PS.forEach((PSs, index) => { %>
+                                <option value="<%= PSs %>"><%= PSs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="PricePS" class="form-label">ราคา</label>
+                        <select name="PricePS" id="PricePS" class="form-select">
+                            <% PricePS.forEach((PricePSs, index) => { %>
+                                <option value="<%= PricePSs %>"><%= PricePSs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">CASE: </label>
-                <select name="BrandCASE" id="BrandCASE">
-                    <% BrandCASE.forEach((BrandCASEs, index) => { %>
-                        <option value="<%= BrandCASEs %>"><%= BrandCASEs %></option>
-                    <% })%>
-                </select>
-                <select name="ModelCASE" id="ModelCASE">
-                    <% ModelCASE.forEach((ModelCASEs, index) => { %>
-                        <option value="<%= ModelCASEs %>"><%= ModelCASEs %></option>
-                    <% })%>
-                </select>
-                <select name="WeightCASE" id="WeightCASE">
-                    <% WeightCASE.forEach((WeightCASEs, index) => { %>
-                        <option value="<%= WeightCASEs %>"><%= WeightCASEs %></option>
-                    <% })%>
-                </select>
-                <select name="I_O_Ports_CASE" id="I_O_Ports_CASE">
-                    <% I_O_Ports_CASE.forEach((I_O_Ports_CASEs, index) => { %>
-                        <option value="<%= I_O_Ports_CASEs %>"><%= I_O_Ports_CASEs %></option>
-                    <% })%>
-                </select>
-                <select name="PriceCASE" id="PriceCASE">
-                    <% PriceCASE.forEach((PriceCASEs, index) => { %>
-                        <option value="<%= PriceCASEs %>"><%= PriceCASEs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- CASE Section -->
+            <div class="component-section">
+                <h4 class="component-title">Case</h4>
+                <div class="row g-3">
+                    <div class="col-md">
+                        <label for="BrandCASE" class="form-label">แบรนด์</label>
+                        <select name="BrandCASE" id="BrandCASE" class="form-select">
+                            <% BrandCASE.forEach((BrandCASEs, index) => { %>
+                                <option value="<%= BrandCASEs %>"><%= BrandCASEs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="ModelCASE" class="form-label">โมเดล</label>
+                        <select name="ModelCASE" id="ModelCASE" class="form-select">
+                            <% ModelCASE.forEach((ModelCASEs, index) => { %>
+                                <option value="<%= ModelCASEs %>"><%= ModelCASEs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="WeightCASE" class="form-label">น้ำหนัก</label>
+                        <select name="WeightCASE" id="WeightCASE" class="form-select">
+                            <% WeightCASE.forEach((WeightCASEs, index) => { %>
+                                <option value="<%= WeightCASEs %>"><%= WeightCASEs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="I_O_Ports_CASE" class="form-label">พอร์ต I/O</label>
+                        <select name="I_O_Ports_CASE" id="I_O_Ports_CASE" class="form-select">
+                            <% I_O_Ports_CASE.forEach((I_O_Ports_CASEs, index) => { %>
+                                <option value="<%= I_O_Ports_CASEs %>"><%= I_O_Ports_CASEs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md">
+                        <label for="PriceCASE" class="form-label">ราคา</label>
+                        <select name="PriceCASE" id="PriceCASE" class="form-select">
+                            <% PriceCASE.forEach((PriceCASEs, index) => { %>
+                                <option value="<%= PriceCASEs %>"><%= PriceCASEs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">COOLING: </label>
-                <select name="BrandCOOLING" id="BrandCOOLING">
-                    <% BrandCOOLING.forEach((BrandCOOLINGs, index) => { %>
-                        <option value="<%= BrandCOOLINGs %>"><%= BrandCOOLINGs %></option>
-                    <% })%>
-                </select>
-                <select name="ModelCOOLING" id="ModelCOOLING">
-                    <% ModelCOOLING.forEach((ModelCOOLINGs, index) => { %>
-                        <option value="<%= ModelCOOLINGs %>"><%= ModelCOOLINGs %></option>
-                    <% })%>
-                </select>
-                <select name="Fan_Built_In_COOLING" id="Fan_Built_In_COOLING">
-                    <% Fan_Built_In_COOLING.forEach((Fan_Built_In_COOLINGs, index) => { %>
-                        <option value="<%= Fan_Built_In_COOLINGs %>"><%= Fan_Built_In_COOLINGs %></option>
-                    <% })%>
-                </select>
-                <select name="PriceCOOLING" id="PriceCOOLING">
-                    <% PriceCOOLING.forEach((PriceCOOLINGs, index) => { %>
-                        <option value="<%= PriceCOOLINGs %>"><%= PriceCOOLINGs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
+            <!-- COOLING Section -->
+            <div class="component-section">
+                <h4 class="component-title">อุปกรณ์ระบายความร้อน</h4>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="BrandCOOLING" class="form-label">แบรนด์</label>
+                        <select name="BrandCOOLING" id="BrandCOOLING" class="form-select">
+                            <% BrandCOOLING.forEach((BrandCOOLINGs, index) => { %>
+                                <option value="<%= BrandCOOLINGs %>"><%= BrandCOOLINGs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="ModelCOOLING" class="form-label">โมเดล</label>
+                        <select name="ModelCOOLING" id="ModelCOOLING" class="form-select">
+                            <% ModelCOOLING.forEach((ModelCOOLINGs, index) => { %>
+                                <option value="<%= ModelCOOLINGs %>"><%= ModelCOOLINGs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="Fan_Built_In_COOLING" class="form-label">พัดลมในตัว</label>
+                        <select name="Fan_Built_In_COOLING" id="Fan_Built_In_COOLING" class="form-select">
+                            <% Fan_Built_In_COOLING.forEach((Fan_Built_In_COOLINGs, index) => { %>
+                                <option value="<%= Fan_Built_In_COOLINGs %>"><%= Fan_Built_In_COOLINGs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="PriceCOOLING" class="form-label">ราคา</label>
+                        <select name="PriceCOOLING" id="PriceCOOLING" class="form-select">
+                            <% PriceCOOLING.forEach((PriceCOOLINGs, index) => { %>
+                                <option value="<%= PriceCOOLINGs %>"><%= PriceCOOLINGs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-                <label for="">MONITOR: </label>
-                <select name="BrandMONITOR" id="BrandMONITOR">
-                    <% BrandMONITOR.forEach((BrandMONITORs, index) => { %>
-                        <option value="<%= BrandMONITORs %>"><%= BrandMONITORs %></option>
-                    <% })%>
-                </select>
-                <select name="ModelMONITOR" id="ModelMONITOR">
-                    <% ModelMONITOR.forEach((ModelMONITORs, index) => { %>
-                        <option value="<%= ModelMONITORs %>"><%= ModelMONITORs %></option>
-                    <% })%>
-                </select>
-                <select name="Display_Size_MONITOR" id="Display_Size_MONITOR">
-                    <% Display_Size_MONITOR.forEach((Display_Size_MONITORs, index) => { %>
-                        <option value="<%= Display_Size_MONITORs %>"><%= Display_Size_MONITORs %></option>
-                    <% })%>
-                </select>
-                <select name="Max_Resolution_MONITOR" id="Max_Resolution_MONITOR">
-                    <% Max_Resolution_MONITOR.forEach((Max_Resolution_MONITORs, index) => { %>
-                        <option value="<%= Max_Resolution_MONITORs %>"><%= Max_Resolution_MONITORs %></option>
-                    <% })%>
-                </select>
-                <select name="Refresh_Rate_MONITOR" id="Refresh_Rate_MONITOR">
-                    <% Refresh_Rate_MONITOR.forEach((Refresh_Rate_MONITORs, index) => { %>
-                        <option value="<%= Refresh_Rate_MONITORs %>"><%= Refresh_Rate_MONITORs %></option>
-                    <% })%>
-                </select>
-                <select name="PriceMONITOR" id="PriceMONITOR">
-                    <% PriceMONITOR.forEach((PriceMONITORs, index) => { %>
-                        <option value="<%= PriceMONITORs %>"><%= PriceMONITORs %></option>
-                    <% })%>
-                </select>
-                <br>
-                <br>
-                <button type="submit" class="btn btn-info">ทำนาย</button>
-            </form>
-        </div>
+            <!-- MONITOR Section -->
+            <div class="component-section">
+                <h4 class="component-title">จอภาพ</h4>
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <label for="BrandMONITOR" class="form-label">แบรนด์</label>
+                        <select name="BrandMONITOR" id="BrandMONITOR" class="form-select">
+                            <% BrandMONITOR.forEach((BrandMONITORs, index) => { %>
+                                <option value="<%= BrandMONITORs %>"><%= BrandMONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="ModelMONITOR" class="form-label">โมเดล</label>
+                        <select name="ModelMONITOR" id="ModelMONITOR" class="form-select">
+                            <% ModelMONITOR.forEach((ModelMONITORs, index) => { %>
+                                <option value="<%= ModelMONITORs %>"><%= ModelMONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="Display_Size_MONITOR" class="form-label">ขนาดจอ</label>
+                        <select name="Display_Size_MONITOR" id="Display_Size_MONITOR" class="form-select">
+                            <% Display_Size_MONITOR.forEach((Display_Size_MONITORs, index) => { %>
+                                <option value="<%= Display_Size_MONITORs %>"><%= Display_Size_MONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="Max_Resolution_MONITOR" class="form-label">ความละเอียดสูงสุด</label>
+                        <select name="Max_Resolution_MONITOR" id="Max_Resolution_MONITOR" class="form-select">
+                            <% Max_Resolution_MONITOR.forEach((Max_Resolution_MONITORs, index) => { %>
+                                <option value="<%= Max_Resolution_MONITORs %>"><%= Max_Resolution_MONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="Refresh_Rate_MONITOR" class="form-label">ความละเอียดสูงสุด</label>
+                        <select name="Refresh_Rate_MONITOR" id="Refresh_Rate_MONITOR" class="form-select">
+                            <% Refresh_Rate_MONITOR.forEach((Refresh_Rate_MONITORs, index) => { %>
+                                <option value="<%= Refresh_Rate_MONITORs %>"><%= Refresh_Rate_MONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="PriceMONITOR" class="form-label">ความละเอียดสูงสุด</label>
+                        <select name="PriceMONITOR" id="PriceMONITOR" class="form-select">
+                            <% PriceMONITOR.forEach((PriceMONITORs, index) => { %>
+                                <option value="<%= PriceMONITORs %>"><%= PriceMONITORs %></option>
+                            <% })%>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary mt-3">ทำนาย</button>
+            </div>
     </div>
 
     <div class="modal fade" id="recommendationModal" tabindex="-1" aria-labelledby="recommendationModalLabel" aria-hidden="true">

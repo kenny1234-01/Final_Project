@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Spec } = require('../database/ModelSpec');
 
-router.get('/', (req, res) => {
-    const specs = [];
+router.get('/', async (req, res) => {
+    const specs = await Spec.find();
     const specsJIB = []; // กำหนดค่าเริ่มต้นเป็นว่างเปล่า
-    res.render('index', { specs: specs, specsJIB: specsJIB, query: '' }); // เริ่มที่หน้าแรก
+    res.render('index', { specs: specs, query: '' }); // เริ่มที่หน้าแรก
 });
 
 router.get('/search', async (req, res) => {

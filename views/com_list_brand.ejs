@@ -10,8 +10,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-    <%- include('navbar/navcomBrand') %>
-        <div class="container-fluid">
+    <%- include('navbar/nav') %>
+    <div class="container-fluid p-5 searchbar">
+        <div class="row">
+            <div class="col">
+                <form class="d-flex" role="search" action="/com_list_brand/search" method="GET">
+                    <input class="form-control me-2 border border-1 border-dark" type="search" name="query" placeholder="ค้นหาสเปคคอมพิวเตอร์..." aria-label="Search" value="<%= query %>">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <a href="/com_list_brand/page/1" class="btn btn-outline-danger ms-1" >รีเซ็ต</a>
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="container-fluid mt-3">
             <h1 style="padding: 15px;border-radius: 5px;color: black;border: 1px solid #ccc;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">Computer Specifications</h1>
             <div class="row row-cols-5">
                 <% if (specs.length > 0) { %>
@@ -25,59 +36,10 @@
                                         data-rank3="<%= spec.Rank3 %>"
                                         data-probability-rank1="<%= spec.ProbabilityRank1 %>"
                                         data-probability-rank2="<%= spec.ProbabilityRank2 %>"
-                                        data-probability-rank3="<%= spec.ProbabilityRank3 %>"
-                                        BrandCPU="<%= spec.BrandCPU %>"
-                                        SeriesCPU="<%= spec.SeriesCPU %>"
-                                        ModelCPU="<%= spec.ModelCPU %>"
-                                        CPU_Base_Clock="<%= spec.CPU_Base_Clock %>"
-                                        PriceCPU="<%= spec.PriceCPU %>"
-                                        BrandMainboard="<%= spec.BrandMainboard %>"
-                                        ModelMainboard="<%= spec.ModelMainboard %>"
-                                        Mainboard_CPU_Support="<%= spec.Mainboard_CPU_Support %>"
-                                        MemoryMainboard="<%= spec.MemoryMainboard %>"
-                                        Mainboard_Memory_Support="<%= spec.Mainboard_Memory_Support %>"
-                                        PriceMainboard="<%= spec.PriceMainboard %>"
-                                        BrandVGA="<%= spec.BrandVGA %>"
-                                        ChipsetVGA="<%= spec.ChipsetVGA %>"
-                                        SeriesVGA="<%= spec.SeriesVGA %>"
-                                        ModelVGA="<%= spec.ModelVGA %>"
-                                        VGA_Base_Clock="<%= spec.VGA_Base_Clock %>"
-                                        VGA_Boost_Clock="<%= spec.VGA_Boost_Clock %>"
-                                        VGA_Memory_Clock="<%= spec.VGA_Memory_Clock %>"
-                                        VGA_Memory_Size="<%= spec.VGA_Memory_Size %>"
-                                        PriceVGA="<%= spec.PriceVGA %>"
-                                        RAM_Size="<%= spec.RAM_Size %>"
-                                        RAM_Speed="<%= spec.RAM_Speed %>"
-                                        PriceRAM="<%= spec.PriceRAM %>"
-                                        CapacitySSD="<%= spec.CapacitySSD %>"
-                                        Read_SSD="<%= spec.Read_SSD %>"
-                                        Write_SSD="<%= spec.Write_SSD %>"
-                                        PriceSSD="<%= spec.PriceSSD %>"
-                                        CapacitySSD2="<%= spec.CapacitySSD2 %>"
-                                        Read_SSD2="<%= spec.Read_SSD2 %>"
-                                        Write_SSD2="<%= spec.Write_SSD2 %>"
-                                        PriceSSD2="<%= spec.PriceSSD2 %>"
-                                        CapacityHDD="<%= spec.CapacityHDD %>"
-                                        Speed_HDD="<%= spec.Speed_HDD %>"
-                                        PriceHDD="<%= spec.PriceHDD %>"
-                                        PS="<%= spec.PS %>"
-                                        PricePS="<%= spec.PricePS %>"
-                                        BrandCASE="<%= spec.BrandCASE %>"
-                                        ModelCASE="<%= spec.ModelCASE %>"
-                                        WeightCASE="<%= spec.WeightCASE %>"
-                                        I_O_Ports_CASE="<%= spec.I_O_Ports_CASE %>"
-                                        PriceCASE="<%= spec.PriceCASE %>"
-                                        BrandCOOLING="<%= spec.BrandCOOLING %>"
-                                        ModelCOOLING="<%= spec.ModelCOOLING %>"
-                                        Fan_Built_In_COOLING="<%= spec.Fan_Built_In_COOLING %>"
-                                        PriceCOOLING="<%= spec.PriceCOOLING %>"
-                                        BrandMONITOR="<%= spec.BrandMONITOR %>"
-                                        ModelMONITOR="<%= spec.ModelMONITOR %>"
-                                        Display_Size_MONITOR="<%= spec.Display_Size_MONITOR %>"
-                                        Max_Resolution_MONITOR="<%= spec.Max_Resolution_MONITOR %>"
-                                        Refresh_Rate_MONITOR="<%= spec.Refresh_Rate_MONITOR %>"
-                                        PriceMONITOR="<%= spec.PriceMONITOR %>">
-                                        <h4 class="card-title"><%= spec.ModelCom %></h4>
+                                        data-probability-rank3="<%= spec.ProbabilityRank3 %>">
+                                        <h4 class="card-title"></h4>
+                                    </a>
+                                    <a href="/showdatacom/<%= spec._id %>" class="openModal"><h4 class="card-title"><%= spec.ModelCom %></h4>
                                     </a>
                                     <p class="card-text">CPU: <%= spec.ModelCPU %></p>
                                     <p class="card-text">Motherboard: <%= spec.ModelMainboard %></p>

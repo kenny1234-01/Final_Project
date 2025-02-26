@@ -33,7 +33,7 @@ router.get('/dashboard/Edit/page/:pageNumber', async (req, res) => {
 
     try {
         // ดึงข้อมูลจาก MongoDB collection 'speccom' พร้อม pagination
-        const specs = await Spec.find().skip(skip).limit(limit);
+        const specs = await Spec.find().sort({ _id: -1 }).skip(skip).limit(limit);
 
         // ดึงข้อมูลทั้งหมดเพื่อคำนวณจำนวนหน้า
         const totalSpecs = await Spec.countDocuments();

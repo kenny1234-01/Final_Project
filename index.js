@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
 const dns = require('dns');
+const { Spec } = require('./database/ModelSpec');
 
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 // เชื่อมต่อกับ MongoDBmongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/
@@ -63,38 +64,102 @@ app.get('/companent', (req, res) => {
     res.render('components')
 });
 
-app.post('/showdatacom', (req, res) => {
-    // ดึงข้อมูลที่ถูกส่งมาจากฟอร์ม
-    const {
-      rank1, rank2, rank3,
-      BrandCPU, SeriesCPU, ModelCPU, CPU_Base_Clock, PriceCPU,
-      BrandMainboard, ModelMainboard, Mainboard_CPU_Support, MemoryMainboard, Mainboard_Memory_Support, PriceMainboard,
-      BrandVGA, ChipsetVGA, SeriesVGA, ModelVGA, VGA_Base_Clock, VGA_Boost_Clock, VGA_Memory_Clock, VGA_Memory_Size, PriceVGA,
-      RAM_Size, RAM_Speed, PriceRAM,
-      CapacitySSD, Read_SSD, Write_SSD, PriceSSD,
-      CapacitySSD2, Read_SSD2, Write_SSD2, PriceSSD2,
-      CapacityHDD, Speed_HDD, PriceHDD,
-      PS, PricePS,
-      BrandCASE, ModelCASE, WeightCASE, I_O_Ports_CASE, PriceCASE,
-      BrandCOOLING, ModelCOOLING, Fan_Built_In_COOLING, PriceCOOLING,
-      BrandMONITOR, ModelMONITOR, Display_Size_MONITOR, Max_Resolution_MONITOR, Refresh_Rate_MONITOR, PriceMONITOR
-    } = req.body;
-  
-    // ใช้ข้อมูลเพื่อแสดงผลใน EJS หรือจัดการต่อ
-    res.render('showdatacom', {
-      rank1, rank2, rank3,
-      BrandCPU, SeriesCPU, ModelCPU, CPU_Base_Clock, PriceCPU,
-      BrandMainboard, ModelMainboard, Mainboard_CPU_Support, MemoryMainboard, Mainboard_Memory_Support, PriceMainboard,
-      BrandVGA, ChipsetVGA, SeriesVGA, ModelVGA, VGA_Base_Clock, VGA_Boost_Clock, VGA_Memory_Clock, VGA_Memory_Size, PriceVGA,
-      RAM_Size, RAM_Speed, PriceRAM,
-      CapacitySSD, Read_SSD, Write_SSD, PriceSSD,
-      CapacitySSD2, Read_SSD2, Write_SSD2, PriceSSD2,
-      CapacityHDD, Speed_HDD, PriceHDD,
-      PS, PricePS,
-      BrandCASE, ModelCASE, WeightCASE, I_O_Ports_CASE, PriceCASE,
-      BrandCOOLING, ModelCOOLING, Fan_Built_In_COOLING, PriceCOOLING,
-      BrandMONITOR, ModelMONITOR, Display_Size_MONITOR, Max_Resolution_MONITOR, Refresh_Rate_MONITOR, PriceMONITOR
+//ระบบแนะนำคอมพิวเตอร์ ----------------------
+
+// ฟังก์ชันแปลงข้อความเป็นเวคเตอร์
+function textToVector(text) {
+    const words = text.toLowerCase().split(/\s+/);
+    const vector = {};
+    words.forEach(word => {
+        vector[word] = (vector[word] || 0) + 1;
     });
+    return vector;
+}
+
+// ฟังก์ชันคำนวณ Cosine Similarity
+function cosineSimilarity(a, b) {
+    const wordsA = Object.keys(a);
+    const wordsB = Object.keys(b);
+    
+    let dotProduct = 0;
+    let magnitudeA = 0;
+    let magnitudeB = 0;
+    
+    // คำนวณ dot product และ magnitude
+    wordsA.forEach(word => {
+        if (b[word]) {
+            dotProduct += a[word] * b[word];
+        }
+        magnitudeA += a[word] * a[word];
+    });
+
+    wordsB.forEach(word => {
+        magnitudeB += b[word] * b[word];
+    });
+
+    magnitudeA = Math.sqrt(magnitudeA);
+    magnitudeB = Math.sqrt(magnitudeB);
+
+    return dotProduct / (magnitudeA * magnitudeB);
+}
+
+// ฟังก์ชันรวมข้อมูลตัวเลขและข้อความเป็นเวคเตอร์เดียว
+function combineVector(textVector, numericData) {
+    const combinedVector = { ...textVector };
+
+    // รวมข้อมูลตัวเลข
+    Object.keys(numericData).forEach(key => {
+        combinedVector[key] = numericData[key];  // เพิ่มข้อมูลตัวเลขเข้าไปในเวคเตอร์
+    });
+
+    return combinedVector;
+}
+
+app.get('/showdatacom/:id', async (req, res) => {
+    const ID_dataSpec = req.params.id;
+    const DataSpec = await Spec.findById(ID_dataSpec);
+
+     // แปลงข้อมูลของสินค้าที่ผู้ใช้สนใจเป็นเวคเตอร์
+     const userProductTextVector = {
+        ...textToVector(DataSpec.BrandCPU),
+        ...textToVector(DataSpec.SeriesCPU),
+        ...textToVector(DataSpec.ModelCPU),
+    };
+    const userProductNumericData = {
+        CPU_Base_Clock: DataSpec.CPU_Base_Clock,
+        PriceCPU: DataSpec.PriceCPU,
+        ssd: DataSpec.ssd
+    };
+    // รวมข้อมูลตัวเลขและข้อความ
+    const userProductVector = combineVector(userProductTextVector, userProductNumericData);
+
+    const productData = await Spec.findById();
+
+    // คำนวณความคล้ายคลึงกับสินค้าทุกตัว
+    const recommendations = productData.map(product => {
+        const productTextVector = {
+            ...textToVector(product.name),
+            ...textToVector(product.description)
+        };
+        const productNumericData = {
+            cpu_speed: product.cpu_speed,
+            ram: product.ram,
+            ssd: product.ssd
+        };
+
+        // รวมข้อมูลข้อความและตัวเลข
+        const productVector = combineVector(productTextVector, productNumericData);
+
+        const similarity = cosineSimilarity(userProductVector, productVector);
+        return { product, similarity };
+    });
+
+    // เรียงลำดับตามความคล้ายคลึง
+    recommendations.sort((a, b) => b.similarity - a.similarity);
+
+    // ส่งข้อมูลการแนะนำสินค้า 5 อันดับแรก
+    const topRecommendations = recommendations.slice(0, 5);
+    res.render('showdatacom', {DataSpec});
 });
 
 app.listen(port, () => {
