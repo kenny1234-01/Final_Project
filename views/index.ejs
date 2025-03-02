@@ -16,8 +16,8 @@
             <div class="col">
                 <form class="d-flex" role="search" action="/search" method="GET">
                     <input class="form-control me-2 border border-1 border-dark" type="search" name="query" placeholder="ค้นหาสเปคคอมพิวเตอร์..." aria-label="Search" value="<%= query %>">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    <a href="/" class="btn btn-outline-danger ms-1" >รีเซ็ต</a>
+                    <button class="btn btn-success" type="submit">Search</button>
+                    <a href="/" class="btn btn-danger ms-1" >รีเซ็ต</a>
                 </form>
             </div>
         </div>
@@ -70,14 +70,16 @@
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <a href="/showdatacom/<%= spec._id %>" class="text-decoration-none">
-                                        <%= spec.ModelCPU %> || <%= spec.ModelVGA %>
+                                        <%= spec.ModelCPU %> & <%= spec.ModelVGA %>
                                     </a>
                                 </h5>
                                 <h6 class="text-muted"><%= spec.BrandCom %></h6>
-                                <p class="card-text fw-bold text-success">฿ <%= 
-                                    spec.PriceCPU + spec.PriceMainboard + spec.PriceVGA + spec.PriceRAM + spec.PriceSSD
-                                    + spec.PriceSSD2 + spec.PriceHDD + spec.PricePS + spec.PriceCASE + spec.PriceCOOLING + spec.PriceMONITOR
-                                %></p>
+                                <p class="card-text fw-bold text-success">฿ <%= (
+                                    (spec.PriceCPU || 0) + (spec.PriceMainboard || 0) + (spec.PriceVGA || 0) +
+                                    (spec.PriceRAM || 0) + (spec.PriceSSD || 0) + (spec.PriceSSD2 || 0) +
+                                    (spec.PriceHDD || 0) + (spec.PricePS || 0) + (spec.PriceCASE || 0) +
+                                    (spec.PriceCOOLING || 0) + (spec.PriceMONITOR || 0)
+                                  ).toLocaleString() %></p>
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Rank 1: <%= spec.Rank1 %> - <%= (spec.ProbabilityRank1 * 100).toFixed(2) %> %</li>

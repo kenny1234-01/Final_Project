@@ -33,7 +33,21 @@ router.get('/page/:pageNumber', async (req, res) => {
 });
 
 router.get('/search', async (req, res) => {
-    const query = req.query.query || ''; // รับคำค้น
+    let query = req.query.query || ''; // รับคำค้น
+    const categoryMap = {
+        'Gaming': /เล่นเกม|เกม|game/i,
+        'GeneralWork': /งานทั่วไป|ทั่วไป|basic/i,
+        'GraphicWork': /กราฟิก|graphic|ออกแบบ/i,
+        'Programming': /เขียนโปรแกรม|coding|โปรแกรม/i
+    };
+
+    // หา category ที่ตรงกับ query
+    for (const [category, regex] of Object.entries(categoryMap)) {
+        if (query.match(regex)) {
+            query = category;
+            break;
+        }
+    }
     const page = parseInt(req.query.page) || 1; // หน้าที่ผู้ใช้ขอ
     const limit = 10; // จำนวนรายการต่อหน้า
     const skip = (page - 1) * limit;

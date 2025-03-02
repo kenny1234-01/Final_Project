@@ -61,6 +61,7 @@ router.post('/', async (req, res) => {
         const specInput = req.body;
         const datarecom = await axios.post("http://127.0.0.1:5000/predict", specInput);
         const Datarecommen = datarecom.data.prediction[0];
+        
         res.render('recommen', { ...dataObject, Datarecommen});
     } catch (error) {
         console.error('Error in /recom route:', error);

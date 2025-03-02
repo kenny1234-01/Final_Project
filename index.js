@@ -60,6 +60,9 @@ app.use('/com_list_brand', pageCom_list_brand);
 const pageRecommen = require('./routes/recommen');
 app.use('/recom', pageRecommen);
 
+const pageFromWeb = require('./routes/FormWeb');
+app.use('/fromWeb', pageFromWeb);
+
 app.get('/companent', (req, res) => {
     res.render('components')
 });
@@ -124,27 +127,130 @@ app.get('/showdatacom/:id', async (req, res) => {
         ...textToVector(DataSpec.BrandCPU),
         ...textToVector(DataSpec.SeriesCPU),
         ...textToVector(DataSpec.ModelCPU),
+        ...textToVector(DataSpec.BrandMainboard),
+        ...textToVector(DataSpec.ModelMainboard),
+        ...textToVector(DataSpec.Mainboard_CPU_Support),
+        ...textToVector(DataSpec.Mainboard_Memory_Support),
+        ...textToVector(DataSpec.BrandVGA),
+        ...textToVector(DataSpec.ChipsetVGA),
+        ...textToVector(DataSpec.SeriesVGA),
+        ...textToVector(DataSpec.ModelVGA),
+        ...textToVector(DataSpec.BrandCASE),
+        ...textToVector(DataSpec.ModelCASE),
+        ...textToVector(DataSpec.I_O_Ports_CASE),
+        ...textToVector(DataSpec.BrandCOOLING),
+        ...textToVector(DataSpec.ModelCOOLING),
+        ...textToVector(DataSpec.Fan_Built_In_COOLING),
+        ...textToVector(DataSpec.BrandMONITOR),
+        ...textToVector(DataSpec.ModelMONITOR),
+        ...textToVector(DataSpec.Max_Resolution_MONITOR),
+        ...textToVector(DataSpec.Rank1),
+        ...textToVector(DataSpec.Rank2),
+        ...textToVector(DataSpec.Rank3)
     };
     const userProductNumericData = {
         CPU_Base_Clock: DataSpec.CPU_Base_Clock,
         PriceCPU: DataSpec.PriceCPU,
-        ssd: DataSpec.ssd
+        MemoryMainboard: DataSpec.MemoryMainboard,
+        PriceMainboard: DataSpec.PriceMainboard,
+        VGA_Base_Clock: DataSpec.VGA_Base_Clock,
+        VGA_Boost_Clock: DataSpec.VGA_Boost_Clock,
+        VGA_Memory_Clock: DataSpec.VGA_Memory_Clock,
+        VGA_Memory_Size: DataSpec.VGA_Memory_Size,
+        PriceVGA: DataSpec.PriceVGA,
+        RAM_Size: DataSpec.RAM_Size,
+        RAM_Speed: DataSpec.RAM_Speed,
+        PriceRAM: DataSpec.PriceRAM,
+        CapacitySSD: DataSpec.CapacitySSD,
+        Read_SSD: DataSpec.Read_SSD,
+        Write_SSD: DataSpec.Write_SSD,
+        PriceSSD: DataSpec.PriceSSD,
+        CapacitySSD2: DataSpec.CapacitySSD2,
+        Read_SSD2: DataSpec.Read_SSD2,
+        Write_SSD2: DataSpec.Write_SSD2,
+        PriceSSD2: DataSpec.PriceSSD2,
+        CapacityHDD: DataSpec.CapacityHDD,
+        Speed_HDD: DataSpec.Speed_HDD,
+        PriceHDD: DataSpec.PriceHDD,
+        PS: DataSpec.PS,
+        PricePS: DataSpec.PricePS,
+        WeightCASE: DataSpec.WeightCASE,
+        PriceCASE: DataSpec.PriceCASE,
+        PriceCOOLING: DataSpec.PriceCOOLING,
+        Display_Size_MONITOR: DataSpec.Display_Size_MONITOR,
+        Refresh_Rate_MONITOR: DataSpec.Refresh_Rate_MONITOR,
+        PriceMONITOR: DataSpec.PriceMONITOR,
+        ProbabilityRank1: DataSpec.ProbabilityRank1,
+        ProbabilityRank2: DataSpec.ProbabilityRank2,
+        ProbabilityRank3: DataSpec.ProbabilityRank3
     };
     // รวมข้อมูลตัวเลขและข้อความ
     const userProductVector = combineVector(userProductTextVector, userProductNumericData);
 
-    const productData = await Spec.findById();
+    const productData = await Spec.find();
 
     // คำนวณความคล้ายคลึงกับสินค้าทุกตัว
     const recommendations = productData.map(product => {
         const productTextVector = {
-            ...textToVector(product.name),
-            ...textToVector(product.description)
+            ...textToVector(product.BrandCPU),
+            ...textToVector(product.SeriesCPU),
+            ...textToVector(product.ModelCPU),
+            ...textToVector(product.BrandMainboard),
+            ...textToVector(product.ModelMainboard),
+            ...textToVector(product.Mainboard_CPU_Support),
+            ...textToVector(product.Mainboard_Memory_Support),
+            ...textToVector(product.BrandVGA),
+            ...textToVector(product.ChipsetVGA),
+            ...textToVector(product.SeriesVGA),
+            ...textToVector(product.ModelVGA),
+            ...textToVector(product.BrandCASE),
+            ...textToVector(product.ModelCASE),
+            ...textToVector(product.I_O_Ports_CASE),
+            ...textToVector(product.BrandCOOLING),
+            ...textToVector(product.ModelCOOLING),
+            ...textToVector(product.Fan_Built_In_COOLING),
+            ...textToVector(product.BrandMONITOR),
+            ...textToVector(product.ModelMONITOR),
+            ...textToVector(product.Max_Resolution_MONITOR),
+            ...textToVector(product.Rank1),
+            ...textToVector(product.Rank2),
+            ...textToVector(product.Rank3)
         };
         const productNumericData = {
-            cpu_speed: product.cpu_speed,
-            ram: product.ram,
-            ssd: product.ssd
+            CPU_Base_Clock: product.CPU_Base_Clock,
+            PriceCPU: product.PriceCPU,
+            MemoryMainboard: product.MemoryMainboard,
+            PriceMainboard: product.PriceMainboard,
+            VGA_Base_Clock: product.VGA_Base_Clock,
+            VGA_Boost_Clock: product.VGA_Boost_Clock,
+            VGA_Memory_Clock: product.VGA_Memory_Clock,
+            VGA_Memory_Size: product.VGA_Memory_Size,
+            PriceVGA: product.PriceVGA,
+            RAM_Size: product.RAM_Size,
+            RAM_Speed: product.RAM_Speed,
+            PriceRAM: product.PriceRAM,
+            CapacitySSD: product.CapacitySSD,
+            Read_SSD: product.Read_SSD,
+            Write_SSD: product.Write_SSD,
+            PriceSSD: product.PriceSSD,
+            CapacitySSD2: product.CapacitySSD2,
+            Read_SSD2: product.Read_SSD2,
+            Write_SSD2: product.Write_SSD2,
+            PriceSSD2: product.PriceSSD2,
+            CapacityHDD: product.CapacityHDD,
+            Speed_HDD: product.Speed_HDD,
+            PriceHDD: product.PriceHDD,
+            PS: product.PS,
+            PricePS: product.PricePS,
+            WeightCASE: product.WeightCASE,
+            PriceCASE: product.PriceCASE,
+            PriceCOOLING: product.PriceCOOLING,
+            Display_Size_MONITOR: product.Display_Size_MONITOR,
+            Refresh_Rate_MONITOR: product.Refresh_Rate_MONITOR,
+            PriceMONITOR: product.PriceMONITOR,
+            ProbabilityRank1: product.ProbabilityRank1,
+            ProbabilityRank2: product.ProbabilityRank2,
+            ProbabilityRank3: product.ProbabilityRank3
         };
 
         // รวมข้อมูลข้อความและตัวเลข
@@ -159,7 +265,7 @@ app.get('/showdatacom/:id', async (req, res) => {
 
     // ส่งข้อมูลการแนะนำสินค้า 5 อันดับแรก
     const topRecommendations = recommendations.slice(0, 5);
-    res.render('showdatacom', {DataSpec});
+    res.render('showdatacom', {DataSpec, topRecommendations});
 });
 
 app.listen(port, () => {

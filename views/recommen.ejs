@@ -35,6 +35,7 @@
     <div class="container py-5">
         <h2 class="text-center form-title">PC Builder - ระบบแนะนำการประกอบคอมพิวเตอร์</h2>
         <form action="/recom" method="post">
+            <button type="reset" class="btn btn-outline-danger mt-3 mb-3">รีเซ็ต</button>
             <!-- CPU Section -->
             <div class="component-section">
                 <h4 class="component-title">CPU</h4>
@@ -527,8 +528,9 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <button type="submit" class="btn btn-primary mt-3">ทำนาย</button>
+                <button type="submit" class="btn btn-primary mt-3">วิเคราะห์สเปคคอม</button>
             </div>
+        </form>
     </div>
 
     <div class="modal fade" id="recommendationModal" tabindex="-1" aria-labelledby="recommendationModalLabel" aria-hidden="true">
@@ -539,10 +541,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p><%= Datarecommen %></p> <!-- แสดงข้อมูลที่ส่งมาจาก server -->
+                    <p>Rank 1 : <%= Datarecommen.Rank1 %> <%= Datarecommen.ProbabilityRank1 * 100 %> %</p>
+                    <p>Rank 2 : <%= Datarecommen.Rank2 %> <%= Datarecommen.ProbabilityRank2 * 100 %> %</p>
+                    <p>Rank 3 : <%= Datarecommen.Rank3 %> <%= Datarecommen.ProbabilityRank3 * 100 %> %</p> <!-- แสดงข้อมูลที่ส่งมาจาก server -->
+                </div>
+                <div class="modal-body">
+                    <div class="col-10">
+                       <canvas id="myPieChart"></canvas> 
+                    </div>  
                 </div>
                 <div class="modal-footer">
-                    <a href="/recom" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+                    <a href="/recom" class="btn btn-secondary">Close</a>
                 </div>
             </div>
         </div>
@@ -559,6 +568,61 @@
                 modal.show(); // แสดง modal เมื่อข้อมูลไม่เป็นค่าว่าง
             }
         });
+
+        const rank1 = '<%= Datarecommen.Rank1 %>';
+        const rank2 = '<%= Datarecommen.Rank2 %>';
+        const rank3 = '<%= Datarecommen.Rank3 %>';
+        const probRank1 = parseFloat('<%= Datarecommen.ProbabilityRank1 %>');
+        const probRank2 = parseFloat('<%= Datarecommen.ProbabilityRank2 %>');
+        const probRank3 = parseFloat('<%= Datarecommen.ProbabilityRank3 %>');
+  
+          // คำนวณเปอร์เซ็นต์
+        const total = probRank1 + probRank2 + probRank3;
+        const probRank1Percent = (probRank1 / total) * 100;
+        const probRank2Percent = (probRank2 / total) * 100;
+        const probRank3Percent = (probRank3 / total) * 100;
+  
+          const ctx = document.getElementById('myPieChart').getContext('2d');
+          const data = {
+              labels: [rank1, rank2, rank3],
+              datasets: [{
+                  data: [probRank1Percent, probRank2Percent, probRank3Percent],
+                  backgroundColor: ['#ff9999', '#66b3ff', '#99ff99'],
+                  hoverOffset: 4
+              }]
+          };
+  
+          const config = {
+              type: 'pie',
+              data: data,
+              options: {
+                  plugins: {
+                      tooltip: {
+                          callbacks: {
+                              label: function(tooltipItem) {
+                                  // แสดงเปอร์เซ็นต์ใน tooltip
+                                  const label = tooltipItem.label;
+                                  const value = tooltipItem.raw;
+                                  return label + ': ' + value.toFixed(2) + '%';  // แสดงค่าเป็นเปอร์เซ็นต์
+                              }
+                          }
+                      },
+                      datalabels: {
+                          formatter: (value, ctx) => {
+                              const total = ctx.dataset.data.reduce((acc, val) => acc + val, 0);
+                              const percentage = (value / total * 100).toFixed(2);
+                              return percentage + '%';  // แสดงเปอร์เซ็นต์ในกราฟ
+                          },
+                          color: '#fff',
+                          font: {
+                              weight: 'bold'
+                          }
+                      }
+                  }
+              }
+          };
+          
+          new Chart(ctx, config);
     </script>
 </body>
 </html>

@@ -10,42 +10,150 @@
 </head>
 <body>
     <%- include('navbar/nav') %>
-    <div class="specFull">
-       <h1 style="padding: 15px;border-radius: 5px;color: 
-    black;border: 1px solid #ccc;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">ส่วนประกอบของคอมพิวเตอร์</h1> 
-        <h2>CPU</h2>
-        <img src="/images/img_cpu.jpg" alt="">
-        <p>หน่วยประมวลผลกลางมีหน้าที่ประมวลผลข้อมูลที่ผู้ใช้ป้อนเข้ามาหรือโปรแกรมที่ผูใ้ช้งานส่งข้อมูลเข้ามาเป็นชุดคำสั่ง</p>
-        <h2>Motherboard</h2>
-        <img src="/images/img_MB.jpg" alt="">
-        <p> คือ อุปกรณ์ที่ทำหน้าที่ในการควบคุมอุปกรณ์ทั้งหมดที่อยู่ในเครื่องคอมพิวเตอร์ มีลักษณะเป็นแผงวงจรขนาดใหญ่ โดยมีช่องสำหรับเสียบอุปกรณ์เพื่อติดตั้ง</p>
-        <h2>Graphics Card</h2>
-        <img src="/images/imag_GPU.jfif" alt="">
-        <p>  คือ อุปกรณ์ที่จะรับค่าข้อมูลที่ผ่านการประมวลผลแล้วจากซีพียู เพื่อนำข้อมูลมาแสดงผลที่จอภาพ</p>
-        <h2>RAM</h2>
-        <img src="/images/img_ram.jpg" alt="">
-        <p>หน่วยความจำหลักที่ใช้เก็บข้อมูลเพื่อให้ซีพียูสามารถนำมาประมวลผลได้ แต่เนื่องจากไม่ใช่หน่วยความจำถาวรเลยจำเป็นต้องมีไฟเลี้ยงตลอดเพื่อเก็บข้อมูล</p>
-        <h2>HDD</h2>
-        <img src="/images/img_HDD.jpg" alt="">
-        <p> เป็นหน่วยความจำถาวรสามารถเก็บข้อมูลได้โดยไม่จำเป็นต้องใช้ไฟเลี้ยง โดยข้อมูลจะถูกเก็บอยู่ในแผ่นจานแม่เหล็ก</p>
-        <h2>SSD</h2>
-        <img src="/images/img_SSD.jpg" alt="">
-        <p> คือ หน่วยความจำถาวรที ่ถูกพัฒนาต่อยอดมาจากฮาร์ดดิสก์โดยจะถูกเปลี่ยนจากการเก็บข้อมูลในแผ่นจานแม่เหล็กเป็นชิพแทน</p>
-        <h2>Power Supply</h2>
-        <img src="/images/img_PS.png" alt="">
-        <p>อุปกรณ์ที ่ทำหน้าที ่จ่ายกระแสไฟให้อุปกรณ์ต่าง ๆ ภายในเคส</p>
-        <h2>Case</h2>
-        <img src="/images/img_Case.jpg" alt="">
-        <p> คือโครงที ่ใช้สำหรับใส่อุปกรณ์ภายในต่างๆเข้าไว้ด้วยกัน โดยอุปกรณ์ต่าง ๆ ที่จะอยู ่ภายในเคสก็จะประกอบด้วย เมนบอร์ด(Mainboard), แรม (RAM), การ์ดจอ(VGA Card), ฮาร์ดดิสก์(Hard Disk Drive), พาวเวอซัพพลาย(Power Supply) เป็นต้น</p>
-        <h2>Cooling</h2>
-        <img src="/images/img_Cooling.jpg" alt="">
-        <p>คือ ระบบที่ช่วยในการระบายความร้อนให้แก่อุปกรณ์ที่เมื่อทำงานแล้วทำให้เกิดความร้อนขึ้นในตัว ซึ่งเป็นการช่วยรักษาอุปกรณ์ที่ทำงานอยู่ไม่ให้เกิดความร้อนสูงเกินกว่าที่อุปกรณ์นั้นจะสามารถทนได้</p>
-        <h2>Monitor</h2>
-        <img src="/images/img_Monitor.jpg" alt="">
-        <p>คืออุปกรณ์ที่ใช้แสดงผลข้อมูลออกมาเป็นภาพทางหน้าจอ โดยการแปลงจากสัญญาณอิเล็กทรอนิกส์ที่ส่งเข้ามา</p>
-        
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 >ส่วนประกอบของคอมพิวเตอร์</h1> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_cpu.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>CPU</h3>
+                                <p>หน่วยประมวลผลกลางมีหน้าที่ประมวลผลข้อมูลที่ผู้ใช้ป้อนเข้ามาหรือโปรแกรมที่ผู้ใช้งานส่งข้อมูลเข้ามาเป็นชุดคำสั่ง</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_MB.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Motherboard</h3>
+                                <p>คือ อุปกรณ์ที่ทำหน้าที่ในการควบคุมอุปกรณ์ทั้งหมดที่อยู่ในเครื่องคอมพิวเตอร์ มีลักษณะเป็นแผงวงจรขนาดใหญ่ โดยมีช่องสำหรับเสียบอุปกรณ์เพื่อติดตั้ง</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/imag_GPU.jfif" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Graphics Card</h3>
+                                <p> คือ อุปกรณ์ที่จะรับค่าข้อมูลที่ผ่านการประมวลผลแล้วจากซีพียู เพื่อนำข้อมูลมาแสดงผลที่จอภาพ</p>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_ram.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>RAM</h3>
+                                <p>หน่วยความจำหลักที่ใช้เก็บข้อมูลเพื่อให้ซีพียูสามารถนำมาประมวลผลได้ แต่เนื่องจากไม่ใช่หน่วยความจำถาวรเลยจำเป็นต้องมีไฟเลี้ยงตลอดเพื่อเก็บข้อมูล</p>                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_HDD.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>HDD</h3>
+                                <p> เป็นหน่วยความจำถาวรสามารถเก็บข้อมูลได้โดยไม่จำเป็นต้องใช้ไฟเลี้ยง โดยข้อมูลจะถูกเก็บอยู่ในแผ่นจานแม่เหล็ก</p>                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_SSD.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>SSD</h3>
+                                <p> คือ หน่วยความจำถาวรที่ถูกพัฒนาต่อยอดมาจากฮาร์ดดิสก์โดยจะถูกเปลี่ยนจากการเก็บข้อมูลในแผ่นจานแม่เหล็กเป็นชิพแทน</p>                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_PS.png" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Power Supply</h3>
+                                <p>อุปกรณ์ที่ทำหน้าที่จ่ายกระแสไฟให้อุปกรณ์ต่าง ๆ ภายในเคส</p>                         
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_Case.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Case</h3>
+                                <p> คือโครงที่ใช้สำหรับใส่อุปกรณ์ภายในต่างๆเข้าไว้ด้วยกัน โดยอุปกรณ์ต่าง ๆ 
+                                    ที่จะอยู่ภายในเคสก็จะประกอบด้วย เมนบอร์ด(Mainboard), แรม (RAM), 
+                                    การ์ดจอ(VGA Card), ฮาร์ดดิสก์(Hard Disk Drive), พาวเวอซัพพลาย(Power Supply) 
+                                    เป็นต้น</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_Cooling.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Cooling</h3>
+                                <p>คือ ระบบที่ช่วยในการระบายความร้อนให้แก่อุปกรณ์ที่เมื่อทำงานแล้วทำให้เกิดความร้อนขึ้นในตัว 
+                                    ซึ่งเป็นการช่วยรักษาอุปกรณ์ที่ทำงานอยู่ไม่ให้เกิดความร้อนสูงเกินกว่าที่อุปกรณ์นั้นจะสามารถทนได้</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-3 m-2"><img src="/images/img_Monitor.jpg" class="card-img-top" alt="..." ></div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h3>Monitor</h3>
+                                <p>คือ อุปกรณ์ที่ใช้แสดงผลข้อมูลออกมาเป็นภาพทางหน้าจอ โดยการแปลงจากสัญญาณอิเล็กทรอนิกส์ที่ส่งเข้ามา</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-
 </body>
 </html>

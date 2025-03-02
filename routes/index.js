@@ -4,12 +4,25 @@ const { Spec } = require('../database/ModelSpec');
 
 router.get('/', async (req, res) => {
     const specs = await Spec.find();
-    const specsJIB = []; // กำหนดค่าเริ่มต้นเป็นว่างเปล่า
     res.render('index', { specs: specs, query: '' }); // เริ่มที่หน้าแรก
 });
 
 router.get('/search', async (req, res) => {
-    const query = req.query.query || ''; // รับคำค้นจากฟอร์ม
+    let query = req.query.query || ''; // รับคำค้นจากฟอร์ม
+    const categoryMap = {
+        'Gaming': /เล่นเกม|เกม|game/i,
+        'GeneralWork': /งานทั่วไป|ทั่วไป|basic/i,
+        'GraphicWork': /กราฟิก|graphic|ออกแบบ/i,
+        'Programming': /เขียนโปรแกรม|coding|โปรแกรม/i
+    };
+
+    // หา category ที่ตรงกับ query
+    for (const [category, regex] of Object.entries(categoryMap)) {
+        if (query.match(regex)) {
+            query = category;
+            break;
+        }
+    }
 
     try {
         // ค้นหาใน MongoDB โดยเช็คจาก ModelCPU หรือ ModelMainboard หรือ ModelVGA

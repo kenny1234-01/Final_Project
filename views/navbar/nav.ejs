@@ -15,7 +15,7 @@
   }
 </style>
 <body>
-    <nav class="navbar navbar-expand-lg bg-success">
+    <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
           <a class="navbar-brand text-light" href="/">ระบบแนะนำการเลือกคอมพิวเตอร์พีซีให้เหมาะกับการใช้งาน</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,17 +26,23 @@
               <li class="nav-item">
                 <a class="nav-link text-light" aria-current="page" href="/">หน้าแรก</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" href="/com_list">รายการคอมพิวเตอร์</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-light" href="/com_list_brand">รายการคอมพิวเตอร์แบรนด์</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  รายการคอมพิวเตอร์
+                </a>
+                <ul class="dropdown-menu bg-primary border border-0">
+                  <li class="nav-item"><a class="nav-link text-light ms-1" href="/com_list">คอมพิวเตอร์ประกอบ</a></li>
+                  <li class="nav-item"><a class="nav-link text-light ms-1" href="/com_list_brand">คอมพิวเตอร์แบรนด์</a></li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-light" href="/recom">วิเคราะห์คอมพิวเตอร์</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" href="/companent">ส่วนประกอบคอมพิวเตอร์</a>
+                <a class="nav-link text-light" href="/companent">เกร็ดความรู้</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/fromWeb">ประเมินเว็บไซต์</a>
               </li>
             </ul>
           </div>

@@ -14,9 +14,12 @@
 
   <div class="container p-5">
     <div class="row">
+      <div class="col"><h1><%= DataSpec.ModelCPU %> & <%= DataSpec.ModelVGA %></h1></div>
+    </div>
+    <div class="row">
       <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-4 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <h3 class="card-title">อันดับการใช้งาน</h3>
             <div class="row">
               <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">Rank 1 : <%= DataSpec.Rank1 %> <%= DataSpec.ProbabilityRank1 * 100 %> %</h5></div>
@@ -33,30 +36,28 @@
       </div>
       <div class="col-md-12 col-lg-8 col-xl-8 mt-3">
         <div class="card">
-          <div class="card-body">
-            <div class="container">
-              <h3 class="card-title">CPU</h3>
-              <div class="row">
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">BrandCPU : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.BrandCPU %></h5></div>
+          <div class="card-body border border-dark rounded">
+            <h3 class="card-title mb-3">รุ่นที่ใกล้เคียง</h3>
+            <% topRecommendations.forEach(({product, similarity}) => { %>
+              <div class="container">
+                <div class="row">
+                  <div class="col-1">
+                    <h1><i class="bi bi-laptop"></i></h1>
+                  </div>
+                  <div class="col-11">
+                    <a href="/showdatacom/<%= product._id %>" class="openModal"><h3 class="card-title"><%= product.BrandCPU %> <%= product.ModelCPU %></h3></a>
+                    <div class="row">
+                      <div class="col pt-2"><h5 class="card-subtitle mb-3 text-success">฿ <%= (
+                        (product.PriceCPU || 0) + (product.PriceMainboard || 0) + (product.PriceVGA || 0) +
+                        (product.PriceRAM || 0) + (product.PriceSSD || 0) + (product.PriceSSD2 || 0) +
+                        (product.PriceHDD || 0) + (product.PricePS || 0) + (product.PriceCASE || 0) +
+                        (product.PriceCOOLING || 0) + (product.PriceMONITOR || 0)
+                      ).toLocaleString() %></h5></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="row">
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">SeriesCPU : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.SeriesCPU %></h5></div>
-              </div>
-              <div class="row">
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">ModelCPU : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.ModelCPU %></h5></div>
-              </div>
-              <div class="row">
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">CPU_Base_Clock : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.CPU_Base_Clock %></h5></div>
-              </div>
-              <div class="row">
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceCPU : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= DataSpec.PriceCPU %></h5></div>
-              </div>
-            </div>
+            <% }); %>
           </div>
         </div>
       </div>
@@ -121,7 +122,39 @@
     <div class="row">
       <div class="col-12 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
+            <div class="container">
+              <h3 class="card-title">CPU</h3>
+              <div class="row">
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">BrandCPU : </h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.BrandCPU %></h5></div>
+              </div>
+              <div class="row">
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">SeriesCPU : </h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.SeriesCPU %></h5></div>
+              </div>
+              <div class="row">
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">ModelCPU : </h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.ModelCPU %></h5></div>
+              </div>
+              <div class="row">
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">CPU_Base_Clock : </h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> <%= DataSpec.CPU_Base_Clock %></h5></div>
+              </div>
+              <div class="row">
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceCPU : </h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= (DataSpec.PriceCPU || 0).toLocaleString() %></h5></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mt-3">
+        <div class="card">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">Mainboard</h3>
               <div class="row">
@@ -146,7 +179,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceMainboard : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= DataSpec.PriceMainboard %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= (DataSpec.PriceMainboard || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -157,7 +190,7 @@
     <div class="row">
       <div class="col-md-12 col-lg-7 col-xl-8 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">การ์ดจอ</h3>
               <div class="row">
@@ -194,7 +227,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceVGA : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= DataSpec.PriceVGA %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= (DataSpec.PriceVGA || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -202,7 +235,7 @@
       </div>
       <div class="col-md-12 col-lg-5 col-xl-4 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">RAM</h3>
               <div class="row">
@@ -215,7 +248,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceRAM : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= DataSpec.PriceRAM %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted"> ฿ <%= (DataSpec.PriceRAM || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -226,7 +259,7 @@
     <div class="row">
       <div class="col-md-12 col-lg-6 col-xl-3 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">SSD</h3>
               <div class="row">
@@ -243,7 +276,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceSSD : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceSSD %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceSSD || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -251,7 +284,7 @@
       </div>
       <div class="col-md-12 col-lg-6 col-xl-3 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">SSD2</h3>
               <div class="row">
@@ -268,7 +301,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceSSD : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceSSD2 %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceSSD2 || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -276,7 +309,7 @@
       </div>
       <div class="col-md-12 col-lg-6 col-xl-3 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">HDD</h3>
               <div class="row">
@@ -289,7 +322,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceHDD : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceHDD %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceHDD || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -297,7 +330,7 @@
       </div>
       <div class="col-md-12 col-lg-6 col-xl-3 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">PS</h3>
               <div class="row">
@@ -306,7 +339,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PricePS : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PricePS %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PricePS || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -317,7 +350,7 @@
     <div class="row">
       <div class="col-12 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">CASE</h3>
               <div class="row">
@@ -338,7 +371,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceCASE : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceCASE %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceCASE || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -349,7 +382,7 @@
     <div class="row">
       <div class="col-12 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">COOLING</h3>
               <div class="row">
@@ -366,7 +399,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceCOOLING : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceCOOLING %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceCOOLING || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -377,7 +410,7 @@
     <div class="row">
       <div class="col-12 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <h3 class="card-title">MONITOR</h3>
               <div class="row">
@@ -402,7 +435,7 @@
               </div>
               <div class="row">
                 <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">PriceMONITOR : </h5></div>
-                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= DataSpec.PriceMONITOR %></h5></div>
+                <div class="col pt-2"><h5 class="card-subtitle mb-2 text-muted">฿ <%= (DataSpec.PriceMONITOR || 0).toLocaleString() %></h5></div>
               </div>
             </div>
           </div>
@@ -413,14 +446,16 @@
     <div class="row">
       <div class="col-12 mt-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body border border-dark rounded">
             <div class="container">
               <div class="row">
                 <div class="col pt-2"><h2 class="card-title">ราคารวม : </h2></div>
-                <div class="col pt-2"><h2 class="card-title">฿ <%= 
-                  DataSpec.PriceCPU + DataSpec.PriceMainboard + DataSpec.PriceVGA + DataSpec.PriceRAM + DataSpec.PriceSSD
-                  + DataSpec.PriceSSD2 + DataSpec.PriceHDD + DataSpec.PricePS + DataSpec.PriceCASE + DataSpec.PriceCOOLING + DataSpec.PriceMONITOR
-                  %></h2></div>
+                <div class="col pt-2"><h2 class="card-title">฿ <%= (
+                  (DataSpec.PriceCPU || 0) + (DataSpec.PriceMainboard || 0) + (DataSpec.PriceVGA || 0) +
+                  (DataSpec.PriceRAM || 0) + (DataSpec.PriceSSD || 0) + (DataSpec.PriceSSD2 || 0) +
+                  (DataSpec.PriceHDD || 0) + (DataSpec.PricePS || 0) + (DataSpec.PriceCASE || 0) +
+                  (DataSpec.PriceCOOLING || 0) + (DataSpec.PriceMONITOR || 0)
+                ).toLocaleString() %></h2></div>
               </div>
             </div>
           </div>
