@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
         // จัดเรียงข้อมูลให้ตรงกับฟิลด์
         const dataObject = Object.fromEntries(fields.map((field, index) => [field, dataResults[index]]));
         const specInput = req.body;
-        const datarecom = await axios.post("http://127.0.0.1:5000/predict", specInput);
+        const datarecom = await axios.post(process.env.URL_KNN, specInput);
         const Datarecommen = datarecom.data.prediction[0];
         
         res.render('recommen', { ...dataObject, Datarecommen});

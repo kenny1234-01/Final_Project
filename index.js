@@ -1,6 +1,7 @@
 const express = require('express');
+require('dotenv').config()
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -11,7 +12,7 @@ const { Spec } = require('./database/ModelSpec');
 
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 // เชื่อมต่อกับ MongoDBmongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/
-mongoose.connect('mongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/spec?retryWrites=true&w=majority&appName=Cluster0').then(() => {
+mongoose.connect(process.env.URLMongoDB).then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {
     console.log("Error connecting to MongoDB:", error);
@@ -30,7 +31,7 @@ app.use(session({
     secret: 'KennyKey', // ใช้เป็นความลับในการเข้ารหัสเซสชัน
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://kenny:Bihbk4EGAj6JwqxZ@cluster0.olj3q.mongodb.net/spec?retryWrites=true&w=majority&appName=Cluster0' }),
+    store: MongoStore.create({ mongoUrl: process.env.URLMongoDB }),
     cookie: { maxAge: 1000 * 60 * 60 * 24 } // อายุของคุกกี้ (1 วัน)
 }));
 
