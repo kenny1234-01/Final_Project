@@ -18,13 +18,12 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         // ค้นหา UserID ล่าสุด
-        const lastId = await FromWeb.findOne().sort({ UserID: -1 });
-
-        let newIdUser = "User1"; // ค่าพื้นฐาน
+        const lastId = await FromWeb.findOne().sort({ UserID: -1 }).exec();
+        let newIdUser = "User001"; // ค่าพื้นฐาน
 
         if (lastId && lastId.UserID) {
             const lastIdNum = parseInt(lastId.UserID.replace("User", ""), 10);
-            newIdUser = `User${String(lastIdNum + 1)}`;
+            newIdUser = `User${(lastIdNum + 1).toString().padStart(3, '0')}`;
         }
 
         // สร้าง User ใหม่
