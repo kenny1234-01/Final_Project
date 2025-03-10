@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Spec } = require('../database/ModelSpec');
+const { FromWeb } = require('../database/ModelForm');
 const {requireLogin} = require('./loginAdmin');
 const axios = require('axios');
 const cheerio = require('cheerio');
@@ -9,8 +10,70 @@ const fs = require('fs');
 const puppeteer = require('puppeteer');
 
 
-router.get('/dashboard', requireLogin, (req, res) => {
-    res.render('dashboardAdmin'); // หน้าหลักของแอดมิน
+router.get('/dashboard', requireLogin, async (req, res) => {
+    const totalSpecs = await Spec.countDocuments();
+    const gamingCount = await Spec.countDocuments({ Rank1: "Gaming" });
+    const GeneralWorkCount = await Spec.countDocuments({ Rank1: "GeneralWork" });
+    const ProgrammingCount = await Spec.countDocuments({ Rank1: "Programming" });
+    const GraphicWorkCount = await Spec.countDocuments({ Rank1: "GraphicWork" });
+    const totalFrom = await FromWeb.countDocuments();
+    let answer01 = [];
+    let answer02 = [];
+    let answer03 = [];
+    let answer04 = [];
+    let answer05 = [];
+    const answerStats01 = await FromWeb.find().select('answer01 -_id');
+    const answerStats02 = await FromWeb.find().select('answer02 -_id');
+    const answerStats03 = await FromWeb.find().select('answer03 -_id');
+    const answerStats04 = await FromWeb.find().select('answer04 -_id');
+    const answerStats05 = await FromWeb.find().select('answer05 -_id');
+    for (let index = 0; index < answerStats01.length; index++) {
+        answer01.push(answerStats01[index].answer01);
+        answer02.push(answerStats02[index].answer02);
+        answer03.push(answerStats03[index].answer03);
+        answer04.push(answerStats04[index].answer04);
+        answer05.push(answerStats05[index].answer05);
+    }
+    const count01 = answer01.reduce((acc, score) => {
+        acc[score] = (acc[score] || 0) + 1;
+        return acc;
+    }, {});
+    const count02 = answer02.reduce((acc, score) => {
+        acc[score] = (acc[score] || 0) + 1;
+        return acc;
+    }, {});
+    const count03 = answer03.reduce((acc, score) => {
+        acc[score] = (acc[score] || 0) + 1;
+        return acc;
+    }, {});
+    const count04 = answer04.reduce((acc, score) => {
+        acc[score] = (acc[score] || 0) + 1;
+        return acc;
+    }, {});
+    const count05 = answer05.reduce((acc, score) => {
+        acc[score] = (acc[score] || 0) + 1;
+        return acc;
+    }, {});
+    [1, 2, 3, 4, 5].forEach(num => {
+        count01[num] = count01[num] || 0;
+        count02[num] = count02[num] || 0;
+        count03[num] = count03[num] || 0;
+        count04[num] = count04[num] || 0;
+        count05[num] = count05[num] || 0;
+    });
+    res.render('dashboardAdmin', {
+        totalSpecs, 
+        totalFrom, 
+        gamingCount, 
+        GeneralWorkCount, 
+        ProgrammingCount, 
+        GraphicWorkCount, 
+        count01,
+        count02,
+        count03,
+        count04,
+        count05
+    }); // หน้าหลักของแอดมิน
 });
 
 router.get('/dashboard/scraping', requireLogin, (req, res) => {
@@ -684,6 +747,10 @@ router.post('/scrape', async (req, res) => {
   await browser.close();
 });
 
+router.get('/dashboard/viewForm', requireLogin, async (req, res) => {
+    const viewForm = await FromWeb.find().sort({ _id: -1 });
+    res.render('viewForm', {viewForm});
+});
 
 
 router.post('/logout', (req, res) => {

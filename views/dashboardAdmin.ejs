@@ -5,18 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recommendation System Computer PC for suitable usage</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    <%- include('navbar/nav') %>
+    <%- include('navbar/navAdmin') %>
     <div class="container-fluid">
         <div class="row">
           <!-- Sidebar -->
-          <%- include('navbar/navAdmin') %>
+          <%- include('navbar/siteAdmin') %>
+          <div class="col-5">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12 bg-warning rounded text-light me-2">
+                        <div class="row mt-3">
+                            <div class="col-9">
+                                <h3><%= totalFrom %> คน</h3>
+                                <p>จำนวนการประเมิน</p>
+                            </div>
+                            <div class="col-3">
+                                <i class="bi bi-speedometer fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <h4 class="mt-3">สีสันและฟอนต์ที่ใช้ในเว็บไซต์อ่านง่ายและสบายตา</h4>
+                        <canvas id="answer01"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <h4 class="mt-3">ความง่ายต่อการใช้งาน</h4>
+                        <canvas id="answer02"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <h4 class="mt-3">ข้อมูลที่แสดงบนเว็บไซต์มีความถูกต้องและครบถ้วน</h4>
+                        <canvas id="answer03"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <h4 class="mt-3">ฟีเจอร์ต่าง ๆ ของเว็บไซต์ตอบโจทย์ความต้องการ</h4>
+                        <canvas id="answer04"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <h4 class="mt-3">ความพึงพอใจโดยรวมต่อเว็บไซต์ของเรา</h4>
+                        <canvas id="answer05"></canvas>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12 bg-primary rounded text-light me-2">
+                        <div class="row mt-3">
+                            <div class="col-9">
+                                <h3><%= totalSpecs %> เครื่อง</h3>
+                                <p>จำนวนคอมพิวเตอร์</p>
+                            </div>
+                            <div class="col-3">
+                                <i class="bi bi-pc-display-horizontal fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 bg-black bg-opacity-10 rounded">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
-    
+    <script>
+        const ctx = document.getElementById('myPieChart').getContext('2d');
+        const data = {
+            labels: [
+                'Gaming',
+                'GeneralWork',
+                'Programming',
+                'GraphicWork'
+            ],
+            datasets: [{
+                label: 'ClassSpec Count Rank 1',
+                data: ['<%= gamingCount %>', '<%= GeneralWorkCount %>', '<%= ProgrammingCount %>', '<%= GraphicWorkCount %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(25, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
 
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            },
+        };
+        
+        new Chart(ctx, config);
+
+        const ctxAnswer01 = document.getElementById('answer01').getContext('2d');
+        const dataAns01 = {
+            labels: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ],
+            datasets: [{
+                label: 'จำนวนคนที่ให้คะแนน',
+                data: ['<%= count01[1] %>', '<%= count01[2] %>', '<%= count01[3] %>', '<%= count01[4] %>', '<%= count01[5] %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const configAnswer01 = {
+            type: 'polarArea',
+            data: dataAns01,
+            options: {}
+        };
+        new Chart(ctxAnswer01, configAnswer01);
+
+        const ctxAnswer02 = document.getElementById('answer02').getContext('2d');
+        const dataAns02 = {
+            labels: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ],
+            datasets: [{
+                label: 'จำนวนคนที่ให้คะแนน',
+                data: ['<%= count02[1] %>', '<%= count02[2] %>', '<%= count02[3] %>', '<%= count02[4] %>', '<%= count02[5] %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const configAnswer02 = {
+            type: 'polarArea',
+            data: dataAns02,
+            options: {}
+        };
+        new Chart(ctxAnswer02, configAnswer02);
+
+        const ctxAnswer03 = document.getElementById('answer03').getContext('2d');
+        const dataAns03 = {
+            labels: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ],
+            datasets: [{
+                label: 'จำนวนคนที่ให้คะแนน',
+                data: ['<%= count03[1] %>', '<%= count03[2] %>', '<%= count03[3] %>', '<%= count03[4] %>', '<%= count03[5] %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const configAnswer03 = {
+            type: 'polarArea',
+            data: dataAns03,
+            options: {}
+        };
+        new Chart(ctxAnswer03, configAnswer03);
+
+        const ctxAnswer04 = document.getElementById('answer04').getContext('2d');
+        const dataAns04 = {
+            labels: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ],
+            datasets: [{
+                label: 'จำนวนคนที่ให้คะแนน',
+                data: ['<%= count04[1] %>', '<%= count04[2] %>', '<%= count04[3] %>', '<%= count04[4] %>', '<%= count04[5] %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const configAnswer04 = {
+            type: 'polarArea',
+            data: dataAns04,
+            options: {}
+        };
+        new Chart(ctxAnswer04, configAnswer04);
+
+        const ctxAnswer05 = document.getElementById('answer05').getContext('2d');
+        const dataAns05 = {
+            labels: [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5'
+            ],
+            datasets: [{
+                label: 'จำนวนคนที่ให้คะแนน',
+                data: ['<%= count05[1] %>', '<%= count05[2] %>', '<%= count05[3] %>', '<%= count05[4] %>', '<%= count05[5] %>'],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        };
+        const configAnswer05 = {
+            type: 'polarArea',
+            data: dataAns05,
+            options: {}
+        };
+        new Chart(ctxAnswer05, configAnswer05);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
