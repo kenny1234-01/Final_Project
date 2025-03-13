@@ -250,7 +250,6 @@ router.post('/dashboard/Edit/AddData', requireLogin, async (req, res) => {
 //แกไขข้อมูล
 router.get('/dashboard/Edit/EditCom/:id', requireLogin, async (req, res) => {
     try {
-        console.log(req.params.id);
         const specs = await Spec.findById(req.params.id);
         res.render('editCom', { spec: specs });
     } catch (err) {
