@@ -339,9 +339,8 @@ router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
         const browser = await puppeteer.launch({
-            headless: true,
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || 
-                            '/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.100/chrome-linux64/chrome',
+            headless: false,
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || executablePath(),
             args: [
               '--no-sandbox',
               '--disable-setuid-sandbox',
