@@ -17,6 +17,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        const existingUser = await FromWeb.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.redirect("/fromWeb?error=email_duplicate"); // ส่งค่า error กลับไปที่หน้าเว็บ
+        }
         // ค้นหา UserID ล่าสุด
         const lastId = await FromWeb.findOne().sort({ UserID: -1 }).exec();
         let newIdUser = "User001"; // ค่าพื้นฐาน
@@ -30,7 +34,7 @@ router.post('/', async (req, res) => {
         const AddFormWeb = new FromWeb({ UserID: newIdUser, ...req.body });
         await AddFormWeb.save();
         
-        res.redirect('/fromWeb');
+        res.redirect('/fromWeb?success=true');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

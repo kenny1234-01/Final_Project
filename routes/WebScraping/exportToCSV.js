@@ -98,7 +98,12 @@ async function exportToCSV(productData, res) {
             console.log('Error downloading file:', err);
         } else {
             console.log('File downloaded:', filePath);
-            
+            try {
+                fs.unlinkSync(filePath);  // ลบไฟล์ที่อยู่ใน path
+                console.log('File deleted after download');
+            } catch (deleteErr) {
+                console.log('Error deleting file:', deleteErr);
+            }
             // Optionally clean up the file after download
             // fs.unlinkSync(filePath);
         }

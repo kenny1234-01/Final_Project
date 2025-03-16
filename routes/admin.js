@@ -2,20 +2,33 @@ const express = require('express');
 const router = express.Router();
 const { Spec } = require('../database/ModelSpec');
 const { FromWeb } = require('../database/ModelForm');
+const { ScrapingSpec } = require('../database/ModelCom');
 const {requireLogin} = require('./loginAdmin');
-const axios = require('axios');
-const cheerio = require('cheerio');
-const { Parser } = require('json2csv');
+const multer = require('multer');
+const csvParser = require('csv-parser');
 const fs = require('fs');
+const path = require('path');
 const puppeteer = require('puppeteer');
-
+const { Parser } = require('json2csv');
+const _ = require('lodash');
 
 router.get('/dashboard', requireLogin, async (req, res) => {
     const totalSpecs = await Spec.countDocuments();
-    const gamingCount = await Spec.countDocuments({ Rank1: "Gaming" });
-    const GeneralWorkCount = await Spec.countDocuments({ Rank1: "GeneralWork" });
-    const ProgrammingCount = await Spec.countDocuments({ Rank1: "Programming" });
-    const GraphicWorkCount = await Spec.countDocuments({ Rank1: "GraphicWork" });
+    const gamingCountR1 = await Spec.countDocuments({ Rank1: "Gaming" });
+    const GeneralWorkCountR1 = await Spec.countDocuments({ Rank1: "GeneralWork" });
+    const ProgrammingCountR1 = await Spec.countDocuments({ Rank1: "Programming" });
+    const GraphicWorkCountR1 = await Spec.countDocuments({ Rank1: "GraphicWork" });
+
+    const gamingCountR2 = await Spec.countDocuments({ Rank2: "Gaming" });
+    const GeneralWorkCountR2 = await Spec.countDocuments({ Rank2: "GeneralWork" });
+    const ProgrammingCountR2 = await Spec.countDocuments({ Rank2: "Programming" });
+    const GraphicWorkCountR2 = await Spec.countDocuments({ Rank2: "GraphicWork" });
+
+    const gamingCountR3 = await Spec.countDocuments({ Rank3: "Gaming" });
+    const GeneralWorkCountR3 = await Spec.countDocuments({ Rank3: "GeneralWork" });
+    const ProgrammingCountR3 = await Spec.countDocuments({ Rank3: "Programming" });
+    const GraphicWorkCountR3 = await Spec.countDocuments({ Rank3: "GraphicWork" });
+    
     const totalFrom = await FromWeb.countDocuments();
     let answer01 = [];
     let answer02 = [];
@@ -64,10 +77,18 @@ router.get('/dashboard', requireLogin, async (req, res) => {
     res.render('dashboardAdmin', {
         totalSpecs, 
         totalFrom, 
-        gamingCount, 
-        GeneralWorkCount, 
-        ProgrammingCount, 
-        GraphicWorkCount, 
+        gamingCountR1, 
+        GeneralWorkCountR1, 
+        ProgrammingCountR1, 
+        GraphicWorkCountR1,
+        gamingCountR2, 
+        GeneralWorkCountR2, 
+        ProgrammingCountR2, 
+        GraphicWorkCountR2,
+        gamingCountR3, 
+        GeneralWorkCountR3, 
+        ProgrammingCountR3, 
+        GraphicWorkCountR3, 
         count01,
         count02,
         count03,
@@ -76,8 +97,55 @@ router.get('/dashboard', requireLogin, async (req, res) => {
     }); // หน้าหลักของแอดมิน
 });
 
-router.get('/dashboard/scraping', requireLogin, (req, res) => {
-    res.render('scraping'); // หน้าเว็บ scraping
+router.get('/dashboard/scraping', requireLogin, async (req, res) => {
+    const SpecScraping = await ScrapingSpec.find().sort({ _id: -1 });
+    res.render('scraping', {SpecScraping}); // หน้าเว็บ scraping
+});
+
+router.get('/dashboard/download-csv', async (req, res) => {
+    try {
+        // ดึงข้อมูลจากฐานข้อมูล
+        const SpecScraping = await ScrapingSpec.find().sort({ _id: -1 });
+
+        // ตรวจสอบว่า SpecScraping มีข้อมูลหรือไม่
+        if (SpecScraping.length === 0) {
+            return res.status(404).send('No data available to download');
+        }
+
+        // เตรียมข้อมูลที่จะแปลงเป็น CSV
+        const processedData = SpecScraping.map(item => {
+            const processedItem = {};
+
+            // ประมวลผลทุกฟิลด์ในข้อมูล SpecScraping
+            Object.keys(item.toObject()).forEach(key => {
+                if (_.isObject(item[key])) {
+                    // แปลงข้อมูลที่เป็น object ให้เป็นแค่ค่าเดียว
+                    Object.keys(item[key]).forEach(subKey => {
+                        const newKey = `${key}_${subKey}`;
+                        processedItem[newKey] = _.get(item[key], subKey) || 'N/A';
+                    });
+                } else {
+                    // แปลงข้อมูลทั่วไป
+                    processedItem[key] = _.get(item, key) || 'N/A';
+                }
+            });
+
+            return processedItem;
+        });
+
+        // แปลงข้อมูลที่ประมวลผลแล้วเป็น CSV
+        const json2csvParser = new Parser();
+        const csv = json2csvParser.parse(processedData);
+
+        // ตั้งค่า headers สำหรับการดาวน์โหลด
+        res.header('Content-Type', 'text/csv');
+        res.attachment('SpecsScraping.csv');
+        res.send(csv);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error generating CSV file');
+    }
 });
 
 router.get('/dashboard/Edit', requireLogin, async (req, res) => {
@@ -169,81 +237,59 @@ router.get('/dashboard/Edit/search', async (req, res) => {
 });
 
 // เพิ่มข้อมูล
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');  // พาธที่เก็บไฟล์ CSV
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));  // ชื่อไฟล์จะถูกตั้งใหม่ให้เป็น timestamp
+    }
+});
+
+const upload = multer({ storage: storage });
 router.get('/dashboard/Edit/AddData', requireLogin, async (req, res) => {
     try {
-        const specs = {
-            BrandCPU: '',
-            SeriesCPU: '',
-            ModelCPU: '',
-            CPU_Base_Clock: 0,
-            PriceCPU: 0,
-            BrandMainboard: '',
-            ModelMainboard: '',
-            Mainboard_CPU_Support: '',
-            MemoryMainboard: 0,
-            Mainboard_Memory_Support: '',
-            PriceMainboard: 0,
-            BrandVGA: '',
-            ChipsetVGA: '',
-            SeriesVGA: '',
-            ModelVGA: '',
-            VGA_Base_Clock: 0,
-            VGA_Boost_Clock: 0,
-            VGA_Memory_Clock: 0,
-            VGA_Memory_Size: 0,
-            PriceVGA: 0,
-            RAM_Size: 0,
-            RAM_Speed: 0,
-            PriceRAM: 0,
-            CapacitySSD: 0,
-            Read_SSD: 0,
-            Write_SSD: 0,
-            PriceSSD: 0,
-            CapacitySSD2: 0,
-            Read_SSD2: 0,
-            Write_SSD2: 0,
-            PriceSSD2: 0,
-            CapacityHDD: 0,
-            Speed_HDD: 0,
-            PriceHDD: 0,
-            PS: 0,
-            PricePS: 0,
-            BrandCASE: '',
-            ModelCASE: '',
-            WeightCASE: 0,
-            I_O_Ports_CASE: '',
-            PriceCASE: 0,
-            BrandCOOLING: '',
-            ModelCOOLING: '',
-            Fan_Built_In_COOLING: '',
-            PriceCOOLING: 0,
-            BrandMONITOR: '',
-            ModelMONITOR: '',
-            Display_Size_MONITOR: 0,
-            Max_Resolution_MONITOR: '',
-            Refresh_Rate_MONITOR: 0,
-            PriceMONITOR: 0,
-            Rank1: '',
-            Rank2: '',
-            Rank3: ''
-          };
-        res.render('AddData', { spec: specs });
+        res.render('AddData');
     } catch (err) {
         console.error(err);
         res.status(500).send('Error retrieving data');
     }
 });
 
-router.post('/dashboard/Edit/AddData', requireLogin, async (req, res) => {
+router.post('/dashboard/Edit/AddData', requireLogin, upload.single('csvFile'), async (req, res) => {
     try {
-        const add_specs = req.body;
-        const spec = new Spec(add_specs);
-        await spec.save();
+        const filePath = req.file.path;
+        console.log(filePath);
+          // path ของไฟล์ที่อัปโหลด
+        const results = [];
 
-        res.redirect('/admin/dashboard/Edit');
+        // อ่านและแปลงข้อมูลจากไฟล์ CSV
+        fs.createReadStream(filePath)
+            .pipe(csvParser())
+            .on('data', (row) => {
+                results.push(row);  // เก็บข้อมูลใน array
+            })
+            .on('end', async () => {
+                try {
+                    // บันทึกข้อมูลทั้งหมดที่แปลงจาก CSV ลงฐานข้อมูล
+                    await Spec.insertMany(results);
+                    console.log('CSV file successfully processed and data added to DB');
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                            console.error('Error deleting file:', err);
+                        } else {
+                            console.log('File deleted successfully');
+                        }
+                    });
+                    res.redirect('/admin/dashboard/Edit');
+                } catch (err) {
+                    console.error('Error saving data to database', err);
+                    res.status(500).send('Error saving data');
+                }
+            });
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error retrieving data');
+        console.error('Error processing file', err);
+        res.status(500).send('Error processing file');
     }
 });
 
@@ -287,7 +333,6 @@ const { extractComponentLinks } = require('./WebScraping/extractComponentLinks')
 const { normalizeProductData } = require('./WebScraping/normalizeProductData');
 const { scrapeProductData } = require('./WebScraping/scrapeProductData');
 const { scrapeProductListings } = require('./WebScraping/scrapeProductListings');
-const { ScrapingSpec } = require('../database/ModelCom');
 
 router.post('/scrape', async (req, res) => {
     try {

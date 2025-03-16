@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body style="background-image: url('/images/backgruad.jpg'); background-size: cover;">
-    <div class="container">
+    <div class="container mt-5">
         <div class="card bg-dark">
             <div class="card-header bg-primary text-light">
                 <div class="row">
@@ -18,218 +18,19 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="/admin/dashboard/Edit/AddData" method="post">
+                <form action="/admin/dashboard/Edit/AddData" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col">
                             <div class="card bg-primary">
-                                <div class="card-header bg-primary text-light">CPU</div>
+                                <div class="card-header bg-primary text-light">เพิ่มไฟล์ CSV</div>
                                 <div class="card-body">
                                     <div class="form-group text-light">
-                                        <label>BrandCPU:</label>
-                                        <input type="text" class="form-control" name="BrandCPU" id="BrandCPU" value="<%= spec.BrandCPU %>">
-                                        <label>SeriesCPU:</label>
-                                        <input type="text" class="form-control" name="SeriesCPU" id="SeriesCPU" value="<%= spec.SeriesCPU %>">
-                                        <label>ModelCPU:</label>
-                                        <input type="text" class="form-control" name="ModelCPU" id="ModelCPU" value="<%= spec.ModelCPU %>">
-                                        <label>CPU_Base_Clock:</label>
-                                        <input type="number" class="form-control" name="CPU_Base_Clock" id="CPU_Base_Clock" value="<%= spec.CPU_Base_Clock %>">
-                                        <label>PriceCPU:</label>
-                                        <input type="number" class="form-control" name="PriceCPU" id="PriceCPU" value="<%= spec.PriceCPU %>">
+                                        <input type="file" class="form-control" name="csvFile" accept=".csv" required />
+                                        <button type="submit" class="btn btn-success mt-3">อัปโหลดไฟล์ CSV</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card bg-primary">
-                                <div class="card-header bg-primary text-light">Mainboard</div>
-                                <div class="card-body">
-                                    <div class="form-group bg-primary text-light">
-                                        <label>BrandMainboard</label>
-                                        <input type="text" class="form-control" name="BrandMainboard" id="BrandMainboard" value="<%= spec.BrandMainboard %>">
-                                        <label>ModelMainboard</label>
-                                        <input type="text" class="form-control" name="ModelMainboard" id="ModelMainboard" value="<%= spec.ModelMainboard %>">
-                                        <label>Mainboard_CPU_Support</label>
-                                        <input type="text" class="form-control" name="Mainboard_CPU_Support" id="Mainboard_CPU_Support" value="<%= spec.Mainboard_CPU_Support %>">
-                                        <label>MemoryMainboard</label>
-                                        <input type="number" class="form-control" name="MemoryMainboard" id="MemoryMainboard" value="<%= spec.MemoryMainboard %>">
-                                        <label>Mainboard_Memory_Support</label>
-                                        <input type="text" class="form-control" name="Mainboard_Memory_Support" id="Mainboard_Memory_Support" value="<%= spec.Mainboard_Memory_Support %>">
-                                        <label>PriceMainboard</label>
-                                        <input type="number" class="form-control" name="PriceMainboard" id="PriceMainboard" value="<%= spec.PriceMainboard %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary">
-                                <div class="card-header text-light">VGA</div>
-                                <div class="card-body">
-                                    <div class="form-group text-light">
-                                        <label>BrandVGA</label>
-                                        <input type="text" class="form-control" name="BrandVGA" id="BrandVGA" value="<%= spec.BrandVGA %>">
-                                        <label>ChipsetVGA</label>
-                                        <input type="text" class="form-control" name="ChipsetVGA" id="ChipsetVGA" value="<%= spec.ChipsetVGA %>">
-                                        <label>SeriesVGA</label>
-                                        <input type="text" class="form-control" name="SeriesVGA" id="SeriesVGA" value="<%= spec.SeriesVGA %>">
-                                        <label>ModelVGA</label>
-                                        <input type="text" class="form-control" name="ModelVGA" id="ModelVGA" value="<%= spec.ModelVGA %>">
-                                        <label>VGA_Base_Clock</label>
-                                        <input type="number" class="form-control" name="VGA_Base_Clock" id="VGA_Base_Clock" value="<%= spec.VGA_Base_Clock %>">
-                                        <label>VGA_Boost_Clock</label>
-                                        <input type="number" class="form-control" name="VGA_Boost_Clock" id="VGA_Boost_Clock" value="<%= spec.VGA_Boost_Clock %>">
-                                        <label>VGA_Memory_Clock</label>
-                                        <input type="number" class="form-control" name="VGA_Memory_Clock" id="VGA_Memory_Clock" value="<%= spec.VGA_Memory_Clock %>">
-                                        <label>VGA_Memory_Size</label>
-                                        <input type="number" class="form-control" name="VGA_Memory_Size" id="VGA_Memory_Size" value="<%= spec.VGA_Memory_Size %>">
-                                        <label>PriceVGA</label>
-                                        <input type="number" class="form-control" name="PriceVGA" id="PriceVGA" value="<%= spec.PriceVGA %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">RAM</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>RAM_Size</label>
-                                        <input type="number" class="form-control" name="RAM_Size" id="RAM_Size" value="<%= spec.RAM_Size %>">
-                                        <label>RAM_Speed</label>
-                                        <input type="number" class="form-control" name="RAM_Speed" id="RAM_Speed" value="<%= spec.RAM_Speed %>">
-                                        <label>PriceRAM</label>
-                                        <input type="number" class="form-control" name="PriceRAM" id="PriceRAM" value="<%= spec.PriceRAM %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">Storage SSD</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>CapacitySSD</label>
-                                        <input type="number" class="form-control" name="CapacitySSD" id="CapacitySSD" value="<%= spec.CapacitySSD %>">
-                                        <label>Read_SSD</label>
-                                        <input type="number" class="form-control" name="Read_SSD" id="Read_SSD" value="<%= spec.Read_SSD %>">
-                                        <label>Write_SSD</label>
-                                        <input type="number" class="form-control" name="Write_SSD" id="Write_SSD" value="<%= spec.Write_SSD %>">
-                                        <label>PriceSSD</label>
-                                        <input type="number" class="form-control" name="PriceSSD" id="PriceSSD" value="<%= spec.PriceSSD %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">Storage SSD</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>CapacitySSD2</label>
-                                        <input type="number" class="form-control" name="CapacitySSD2" id="CapacitySSD2" value="<%= spec.CapacitySSD2 %>">
-                                        <label>Read_SSD2</label>
-                                        <input type="number" class="form-control" name="Read_SSD2" id="Read_SSD2" value="<%= spec.Read_SSD2 %>">
-                                        <label>Write_SSD2</label>
-                                        <input type="number" class="form-control" name="Write_SSD2" id="Write_SSD2" value="<%= spec.Write_SSD2 %>">
-                                        <label>PriceSSD2</label>
-                                        <input type="number" class="form-control" name="PriceSSD2" id="PriceSSD2" value="<%= spec.PriceSSD2 %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">Storage HDD</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>CapacityHDD</label>
-                                        <input type="number" class="form-control" name="CapacityHDD" id="CapacityHDD" value="<%= spec.CapacityHDD %>">
-                                        <label>Speed_HDD</label>
-                                        <input type="number" class="form-control" name="Speed_HDD" id="Speed_HDD" value="<%= spec.Speed_HDD %>">
-                                        <label>PriceHDD</label>
-                                        <input type="number" class="form-control" name="PriceHDD" id="PriceHDD" value="<%= spec.PriceHDD %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">Power Supply</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Power Capacity</label>
-                                        <input type="number" class="form-control" name="PS" id="PS" value="<%= spec.PS %>">
-                                        <label>PricePS</label>
-                                        <input type="number" class="form-control" name="PricePS" id="PricePS" value="<%= spec.PricePS %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">CASE</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>BrandCASE</label>
-                                        <input type="text" class="form-control" name="BrandCASE" id="BrandCASE" value="<%= spec.BrandCASE %>">
-                                        <label>ModelCASE</label>
-                                        <input type="text" class="form-control" name="ModelCASE" id="ModelCASE" value="<%= spec.ModelCASE %>">
-                                        <label>WeightCASE</label>
-                                        <input type="number" class="form-control" name="WeightCASE" id="WeightCASE" value="<%= spec.WeightCASE %>">
-                                        <label>I_O_Ports_CASE</label>
-                                        <input type="text" class="form-control" name="I_O_Ports_CASE" id="I_O_Ports_CASE" value="<%= spec.I_O_Ports_CASE %>">
-                                        <label>PriceCASE</label>
-                                        <input type="number" class="form-control" name="PriceCASE" id="PriceCASE" value="<%= spec.PriceCASE %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">COOLING</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>BrandCOOLING</label>
-                                        <input type="text" class="form-control" name="BrandCOOLING" id="BrandCOOLING" value="<%= spec.BrandCOOLING %>">
-                                        <label>ModelCOOLING</label>
-                                        <input type="text" class="form-control" name="ModelCOOLING" id="ModelCOOLING" value="<%= spec.ModelCOOLING %>">
-                                        <label>Fan_Built_In_COOLING</label>
-                                        <input type="text" class="form-control" name="Fan_Built_In_COOLING" id="Fan_Built_In_COOLING" value="<%= spec.Fan_Built_In_COOLING %>">
-                                        <label>PriceCOOLING</label>
-                                        <input type="number" class="form-control" name="PriceCOOLING" id="PriceCOOLING" value="<%= spec.PriceCOOLING %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-primary text-light">
-                                <div class="card-header">MONITOR</div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>BrandMONITOR</label>
-                                        <input type="text" class="form-control" name="BrandMONITOR" id="BrandMONITOR" value="<%= spec.BrandMONITOR %>">
-                                        <label>ModelMONITOR</label>
-                                        <input type="text" class="form-control" name="ModelMONITOR" id="ModelMONITOR" value="<%= spec.ModelMONITOR %>">
-                                        <label>Display_Size_MONITOR</label>
-                                        <input type="number" class="form-control" name="Display_Size_MONITOR" id="Display_Size_MONITOR" value="<%= spec.Display_Size_MONITOR %>">
-                                        <label>Max_Resolution_MONITOR</label>
-                                        <input type="text" class="form-control" name="Max_Resolution_MONITOR" id="Max_Resolution_MONITOR" value="<%= spec.Max_Resolution_MONITOR %>">
-                                        <label>Refresh_Rate_MONITOR</label>
-                                        <input type="number" class="form-control" name="Refresh_Rate_MONITOR" id="Refresh_Rate_MONITOR" value="<%= spec.Refresh_Rate_MONITOR %>">
-                                        <label>PriceMONITOR</label>
-                                        <input type="number" class="form-control" name="PriceMONITOR" id="PriceMONITOR" value="<%= spec.PriceMONITOR %>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <button type="submit" class="btn btn-primary">Sumit</button>
                     </div>
                 </form>
             </div>

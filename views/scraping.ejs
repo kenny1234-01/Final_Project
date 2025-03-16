@@ -25,8 +25,35 @@
                     <input type="text" class="form-control mb-2" id="url" name="url" value="https://notebookspec.com/pc/ranking"  required>
                     <input type="number" class="form-control" id="list" name="list" placeholder="กรอกจำนวนข้อมูลที่ต้องการ (40 ขั้นไป)" required>
                  </div>
-                <button type="submit" class="btn btn-success">เริ่ม Web Scraping</button>
+                <button type="submit" class="btn btn-success mb-4">เริ่ม Web Scraping</button>
             </form>
+
+            <div class="table-responsive rounded ">
+                <a href="/admin/dashboard/download-csv" class="btn btn-outline-success">Download <i class="bi bi-file-earmark-arrow-down-fill"></i></a>
+                <table class="table table-sm">
+                    <thead class="table">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">วันเวลาที่ Scraping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% if (SpecScraping.length > 0) { %>
+                        <% SpecScraping.forEach((spec, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= new Date(spec.updatedAt).toLocaleString('th-TH', { 
+                                    year: 'numeric', month: 'long', day: 'numeric', 
+                                    hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                                  }) %></td>
+                            </tr>
+                        <% }) %>
+                      <% } else { %>
+                          <p>ไม่พบผลลัพธ์ที่ตรงกับคำค้นของคุณ</p>
+                      <% } %>
+                    </tbody>
+                </table>
+            </div>
           </div>
         </div>
     </div>

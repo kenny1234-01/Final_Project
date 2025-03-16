@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Spec } = require('../database/ModelSpec');
 const axios = require('axios');
+const { Parser } = require('json2csv');
 
 router.get('/', async (req, res) => {
     try {
@@ -61,12 +62,27 @@ router.post('/', async (req, res) => {
         const specInput = req.body;
         const datarecom = await axios.post(process.env.URL_KNN, specInput);
         const Datarecommen = datarecom.data.prediction[0];
-        
+        let {Rank1,Rank2,Rank3,ProbabilityRank1,ProbabilityRank2,ProbabilityRank3} = Datarecommen;
+        const CSV_Spec = {...req.body,Rank1,Rank2,Rank3,ProbabilityRank1,ProbabilityRank2,ProbabilityRank3};
+        req.session.csvData = CSV_Spec;
         res.render('recommen', { ...dataObject, Datarecommen});
     } catch (error) {
         console.error('Error in /recom route:', error);
         res.status(500).send('Internal Server Error');
     }
+});
+
+router.get('/download-csv', (req, res) => {
+    if (!req.session.csvData) {
+        return res.status(400).send('No CSV data available');
+    }
+
+    const json2csvParser = new Parser();
+    const csv = json2csvParser.parse([req.session.csvData]);
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment('specs.csv');
+    res.send(csv);
 });
 
 module.exports = router;

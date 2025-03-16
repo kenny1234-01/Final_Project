@@ -147,6 +147,65 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">สำเร็จ!</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ทำแบบประเมินสำเร็จแล้ว
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="closeModal">ตกลง</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Modal แจ้งเตือนเมื่ออีเมลซ้ำ -->
+    <div class="modal fade" id="emailErrorModal" tabindex="-1" aria-labelledby="emailErrorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="emailErrorModalLabel">ข้อผิดพลาด</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                อีเมลนี้ถูกใช้ไปแล้ว กรุณาใช้อีเมลอื่น
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeEmailModal">ตกลง</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const urlParams = new URLSearchParams(window.location.search);
+      
+          // ตรวจสอบ success
+          if (urlParams.get("success") === "true") {
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            document.getElementById("closeModal").addEventListener("click", function () {
+              window.history.replaceState({}, document.title, window.location.pathname);
+            });
+          }
+      
+          // ตรวจสอบ error กรณีอีเมลซ้ำ
+          if (urlParams.get("error") === "email_duplicate") {
+            var emailErrorModal = new bootstrap.Modal(document.getElementById('emailErrorModal'));
+            emailErrorModal.show();
+            document.getElementById("closeEmailModal").addEventListener("click", function () {
+              window.history.replaceState({}, document.title, window.location.pathname);
+            });
+          }
+        });
+    </script>
+      
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
