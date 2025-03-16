@@ -28,7 +28,7 @@ router.get('/dashboard', requireLogin, async (req, res) => {
     const GeneralWorkCountR3 = await Spec.countDocuments({ Rank3: "GeneralWork" });
     const ProgrammingCountR3 = await Spec.countDocuments({ Rank3: "Programming" });
     const GraphicWorkCountR3 = await Spec.countDocuments({ Rank3: "GraphicWork" });
-    
+
     const totalFrom = await FromWeb.countDocuments();
     let answer01 = [];
     let answer02 = [];
@@ -358,7 +358,7 @@ router.post('/scrape', async (req, res) => {
         await browser.close();
     } catch (error) {
         console.error('Error in scrape endpoint:', error);
-        res.status(500).send({ error: 'An error occurred during scraping' });
+        res.status(500).json({ error: error.message });
     }
 });
 
