@@ -9,26 +9,7 @@ const bodyParser = require('body-parser');
 const _ = require('lodash');
 const dns = require('dns');
 const { Spec } = require('./database/ModelSpec');
-const fs = require('fs');
-const path = require('path');
 dns.setServers(['8.8.8.8', '1.1.1.1']);
-
-const searchDir = '/opt/render/.cache/puppeteer/chrome';  // path ของ Chrome ที่อาจจะถูกติดตั้ง
-
-// ฟังก์ชันในการค้นหาไฟล์ chrome
-function findChromeExecutable(dir) {
-    const files = fs.readdirSync(dir);
-    for (const file of files) {
-        const fullPath = path.join(dir, file);
-        if (fs.statSync(fullPath).isDirectory()) {
-            findChromeExecutable(fullPath);  // ค้นหาภายใน directory ถ้าเป็นโฟลเดอร์
-        } else if (file.includes('chrome') && fullPath.endsWith('chrome')) {
-            console.log('Chrome executable found at:', fullPath);
-        }
-    }
-}
-
-findChromeExecutable(searchDir); 
 
 mongoose.connect(process.env.URLMongoDB).then(() => {
     console.log("Connected to MongoDB");
