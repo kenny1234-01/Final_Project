@@ -338,10 +338,16 @@ router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
         const browser = await puppeteer.launch({
-            executablePath: '/opt/render/.cache/puppeteer/chrome/linux-<version>/chrome-linux/chrome',  // เปลี่ยน <version> เป็นเวอร์ชันที่ Puppeteer ดาวน์โหลด
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+            args: [
+                "--no-sandbox", 
+                "--disable-setuid-sandbox", 
+                "--disable-dev-shm-usage",
+                "--headless"
+            ],
             headless: true
         });
+        
         // Step 1: Get all product listing URLs
         const hrefList = await scrapeProductListings(browser, url, list);
         console.log(`Total products fetched: ${hrefList.length}`);
