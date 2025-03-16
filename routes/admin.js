@@ -334,14 +334,6 @@ const { extractComponentLinks } = require('./WebScraping/extractComponentLinks')
 const { normalizeProductData } = require('./WebScraping/normalizeProductData');
 const { scrapeProductData } = require('./WebScraping/scrapeProductData');
 const { scrapeProductListings } = require('./WebScraping/scrapeProductListings');
-const pathToChrome = '/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.100/chrome-linux64/chrome';
-fs.chmod(pathToChrome, '755', (err) => {
-    if (err) {
-      console.error('Failed to set permissions:', err);
-    } else {
-      console.log('Permissions successfully set to 755 for', pathToChrome);
-    }
-  });
 
 router.post('/scrape', async (req, res) => {
     try {
