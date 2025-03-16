@@ -339,9 +339,9 @@ router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
         const browser = await puppeteer.launch({
-            executablePath: executablePath(),  // ใช้ path ของ Chrome หรือ Chromium ในเครื่อง
+            executablePath: process.env.PartBrowser || executablePath(),  // ใช้ path ของ Chrome หรือ Chromium ในเครื่อง
             headless: true
-          });
+        });
         
         // Step 1: Get all product listing URLs
         const hrefList = await scrapeProductListings(browser, url, list);
