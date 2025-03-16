@@ -339,9 +339,20 @@ router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
         const browser = await puppeteer.launch({
-            executablePath: process.env.PartBrowser || executablePath(),  // ใช้ path ของ Chrome หรือ Chromium ในเครื่อง
-            headless: true
-        });
+            headless: true,
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || 
+                            '/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.100/chrome-linux64/chrome',
+            args: [
+              '--no-sandbox',
+              '--disable-setuid-sandbox',
+              '--disable-dev-shm-usage',
+              '--disable-accelerated-2d-canvas',
+              '--no-first-run',
+              '--no-zygote',
+              '--single-process',
+              '--disable-gpu'
+            ]
+          });
         
         // Step 1: Get all product listing URLs
         const hrefList = await scrapeProductListings(browser, url, list);
