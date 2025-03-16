@@ -8,7 +8,8 @@ const multer = require('multer');
 const csvParser = require('csv-parser');
 const fs = require('fs');
 const path = require('path');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
+const { executablePath } = require('puppeteer');
 const { Parser } = require('json2csv');
 const _ = require('lodash');
 
@@ -338,15 +339,9 @@ router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
         const browser = await puppeteer.launch({
-            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-            args: [
-                "--no-sandbox", 
-                "--disable-setuid-sandbox", 
-                "--disable-dev-shm-usage",
-                "--headless"
-            ],
+            executablePath: executablePath(),  // ใช้ path ของ Chrome หรือ Chromium ในเครื่อง
             headless: true
-        });
+          });
         
         // Step 1: Get all product listing URLs
         const hrefList = await scrapeProductListings(browser, url, list);
