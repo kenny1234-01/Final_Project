@@ -14,13 +14,20 @@ const fs = require('fs');
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const pathToChrome = '/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.100/chrome-linux64/chrome';
-fs.chmod(pathToChrome, '755', (err) => {
-    if (err) {
-      console.error('Failed to set permissions:', err);
-    } else {
-      console.log('Permissions successfully set to 755 for', pathToChrome);
-    }
-});
+
+if (fs.existsSync(pathToChrome)) {
+    console.log('Chrome executable found at:', pathToChrome);
+    // ตั้งสิทธิ์ไฟล์ถ้าหาเจอ
+    fs.chmod(pathToChrome, '755', (err) => {
+        if (err) {
+            console.error('Failed to set permissions:', err);
+        } else {
+            console.log('Permissions successfully set to 755 for', pathToChrome);
+        }
+    });
+} else {
+    console.error('Chrome executable not found at the specified path:', pathToChrome);
+}
 
 mongoose.connect(process.env.URLMongoDB).then(() => {
     console.log("Connected to MongoDB");
