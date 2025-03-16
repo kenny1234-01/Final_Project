@@ -10,24 +10,25 @@ const _ = require('lodash');
 const dns = require('dns');
 const { Spec } = require('./database/ModelSpec');
 const fs = require('fs');
-
+const path = require('path');
 dns.setServers(['8.8.8.8', '1.1.1.1']);
 
-const pathToChrome = '/opt/render/.cache/puppeteer/chrome/linux-129.0.6668.100/chrome-linux64/chrome';
+const searchDir = '/opt/render/.cache/puppeteer/chrome';  // path ของ Chrome ที่อาจจะถูกติดตั้ง
 
-if (fs.existsSync(pathToChrome)) {
-    console.log('Chrome executable found at:', pathToChrome);
-    // ตั้งสิทธิ์ไฟล์ถ้าหาเจอ
-    fs.chmod(pathToChrome, '755', (err) => {
-        if (err) {
-            console.error('Failed to set permissions:', err);
-        } else {
-            console.log('Permissions successfully set to 755 for', pathToChrome);
+// ฟังก์ชันในการค้นหาไฟล์ chrome
+function findChromeExecutable(dir) {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+        const fullPath = path.join(dir, file);
+        if (fs.statSync(fullPath).isDirectory()) {
+            findChromeExecutable(fullPath);  // ค้นหาภายใน directory ถ้าเป็นโฟลเดอร์
+        } else if (file.includes('chrome') && fullPath.endsWith('chrome')) {
+            console.log('Chrome executable found at:', fullPath);
         }
-    });
-} else {
-    console.error('Chrome executable not found at the specified path:', pathToChrome);
+    }
 }
+
+findChromeExecutable(searchDir); 
 
 mongoose.connect(process.env.URLMongoDB).then(() => {
     console.log("Connected to MongoDB");
