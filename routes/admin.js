@@ -337,8 +337,11 @@ const { scrapeProductListings } = require('./WebScraping/scrapeProductListings')
 router.post('/scrape', async (req, res) => {
     try {
         const { url, list } = req.body;
-        const browser = await puppeteer.launch({ headless: false });
-        
+        const browser = await puppeteer.launch({
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+            headless: "new"
+        });
         // Step 1: Get all product listing URLs
         const hrefList = await scrapeProductListings(browser, url, list);
         console.log(`Total products fetched: ${hrefList.length}`);
