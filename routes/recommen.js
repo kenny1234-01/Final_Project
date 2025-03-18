@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
             'BrandCOOLING', 'ModelCOOLING', 'Fan_Built_In_COOLING', 'PriceCOOLING',
             'BrandMONITOR', 'ModelMONITOR', 'Display_Size_MONITOR', 'Max_Resolution_MONITOR', 'Refresh_Rate_MONITOR', 'PriceMONITOR'
         ];
-
+        await axios.get(process.env.URL_GET_KNN);
         // ดึงข้อมูลทั้งหมดจาก MongoDB
         const dataPromises = fields.map(field => Spec.distinct(field));
         const dataResults = await Promise.all(dataPromises);
