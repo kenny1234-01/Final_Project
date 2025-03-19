@@ -541,9 +541,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Rank 1 : <%= Datarecommen.Rank1 %> <%= Datarecommen.ProbabilityRank1 * 100 %> %</p>
-                    <p>Rank 2 : <%= Datarecommen.Rank2 %> <%= Datarecommen.ProbabilityRank2 * 100 %> %</p>
-                    <p>Rank 3 : <%= Datarecommen.Rank3 %> <%= Datarecommen.ProbabilityRank3 * 100 %> %</p> <!-- แสดงข้อมูลที่ส่งมาจาก server -->
+                    <p>Rank 1 : <%= Datarecommen.Rank1 %> <%= (Datarecommen.ProbabilityRank1 * 100).toFixed(2) %> %</p>
+                    <p>Rank 2 : <%= Datarecommen.Rank2 %> <%= (Datarecommen.ProbabilityRank2 * 100).toFixed(2) %> %</p>
+                    <p>Rank 3 : <%= Datarecommen.Rank3 %> <%= (Datarecommen.ProbabilityRank3 * 100).toFixed(2) %> %</p> <!-- แสดงข้อมูลที่ส่งมาจาก server -->
                 </div>
                 <div class="modal-body">
                     <div class="col-10">

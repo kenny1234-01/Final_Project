@@ -22,36 +22,69 @@
             </div>
         </div>
     </div>
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="d-block w-100 p-5 bg-primary text-white text-center">
-                    <a href="/search?query=GeneralWork" class="openModal text-light fs-2"><i class="bi bi-person-workspace"></i> คอมสำหรับงานทั่วไป</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-block w-100 p-5 bg-danger text-white text-center">
-                    <a href="/search?query=Gaming" class="openModal text-light fs-2"><i class="bi bi-controller"></i> คอมเล่นเกม</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-block w-100 p-5 bg-dark text-white text-center">
-                    <a href="/search?query=GraphicWork" class="openModal text-light fs-2"><i class="bi bi-vector-pen"></i> คอมกราฟิก</a>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-block w-100 p-5 bg-success text-white text-center">
-                    <a href="/search?query=Programming" class="openModal text-light fs-2"><i class="bi bi-terminal"></i> คอมเขียนโปรแกรม</a>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex flex-wrap align-items-start gap-2 mt-3">
+                    <button class="btn btn-secondary btn-lg category-btn" data-query="GeneralWork">
+                        <i class="bi bi-person-workspace"></i> คอมสำหรับงานทั่วไป
+                    </button>
+                    <button class="btn btn-secondary btn-lg category-btn" data-query="Gaming">
+                        <i class="bi bi-controller"></i> คอมเล่นเกม
+                    </button>
+                    <button class="btn btn-secondary btn-lg category-btn" data-query="GraphicWork">
+                        <i class="bi bi-vector-pen"></i> คอมกราฟิก
+                    </button>
+                    <button class="btn btn-secondary btn-lg category-btn" data-query="Programming">
+                        <i class="bi bi-terminal"></i> คอมเขียนโปรแกรม
+                    </button>
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
     </div>
+    
+    <script>
+        function updateButtonState(query) {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active', 'btn-primary', 'btn-danger', 'btn-dark', 'btn-success');
+                btn.classList.add('btn-secondary');
+                
+                if (btn.dataset.query === query) {
+                    btn.classList.remove('btn-secondary');
+                    switch (query) {
+                        case 'GeneralWork':
+                            btn.classList.add('btn-primary');
+                            break;
+                        case 'Gaming':
+                            btn.classList.add('btn-danger');
+                            break;
+                        case 'GraphicWork':
+                            btn.classList.add('btn-dark');
+                            break;
+                        case 'Programming':
+                            btn.classList.add('btn-success');
+                            break;
+                    }
+                }
+            });
+        }
+    
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const query = this.dataset.query;
+                window.location.href = `/search?query=${query}`;
+            });
+        });
+    
+        // ตรวจสอบ URL ว่ามี query หรือไม่ แล้วอัปเดตปุ่ม
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentQuery = urlParams.get('query');
+        if (currentQuery) {
+            updateButtonState(currentQuery);
+        }
+    </script>
     
     <!-- Display Search Results -->
     <% if (specs.length > 0) { %>

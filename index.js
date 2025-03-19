@@ -264,7 +264,7 @@ app.get('/showdatacom/:id', async (req, res) => {
     recommendations.sort((a, b) => b.similarity - a.similarity);
 
     // ส่งข้อมูลการแนะนำสินค้า 5 อันดับแรก
-    const topRecommendations = recommendations.slice(0, 5);
+    const topRecommendations = recommendations.slice(1, 6);
     res.render('showdatacom', {DataSpec, topRecommendations});
 });
 
